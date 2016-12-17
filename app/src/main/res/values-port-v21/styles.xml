@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Window Translucent Design - BEGIN -->
+    <!-- see: http://haruue.moe/blog/2016/09/07/simple-android-window-translucent-ui-design/ -->
+    <style name="AppTheme.WindowTranslucent" parent="AppTheme.WindowTranslucent.Base">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+</resources>
