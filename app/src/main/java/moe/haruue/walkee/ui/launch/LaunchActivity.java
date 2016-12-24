@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import moe.haruue.walkee.ui.base.BaseActivity;
-import moe.haruue.walkee.ui.main.MainActivity;
 import moe.haruue.walkee.ui.introduce.IntroduceActivity;
+import moe.haruue.walkee.ui.main.MainActivity;
 
 /**
  * A shadow activity without interface.<br>
