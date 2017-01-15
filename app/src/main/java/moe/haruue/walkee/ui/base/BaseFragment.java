@@ -23,4 +23,16 @@ public abstract class BaseFragment extends Fragment {
     public <V extends View> V $(View v, @IdRes int id) {
         return (V) v.findViewById(id);
     }
+
+    /**
+     * A simple version of {@link View#findViewById(int)}
+     * @param id must be a id in {@link moe.haruue.walkee.R.id}
+     * @param <V> the real type of view, which will be auto casted
+     * @return A casted view
+     */
+    @SuppressWarnings("unchecked")
+    public <V extends View> V $(@IdRes int id) {
+        return (V) getView().findViewById(id);
+    }
+
 }

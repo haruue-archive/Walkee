@@ -21,9 +21,4 @@
           android:icon="@drawable/ic_directions_walk_black_24dp"
           android:checkable="true"/>
 
-    <item android:id="@+id/item_account_center"
-          android:title="@string/account_center"
-          android:icon="@drawable/ic_account_circle_black_24dp"
-          android:checkable="true"/>
-
 </menu>
