@@ -17,4 +17,8 @@
     <string name="format_distance_km">%s 公里</string>
     <string name="time_of_walk_while_using_smart_phone">步行的同时使用手机的次数</string>
     <string name="format_times">%s 次</string>
+    <string name="ask_username">该如何称呼您呢？</string>
+    <string name="click_to_fill_username">点这里告诉我应该如何称呼您</string>
+    <string name="nickname">昵称</string>
+    <string name="nickname_here">在这里输入你的昵称</string>
 </resources>

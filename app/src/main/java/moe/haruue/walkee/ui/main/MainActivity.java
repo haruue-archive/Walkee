@@ -18,12 +18,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.siyamed.shapeimageview.CircularImageView;
+
+import moe.haruue.walkee.App;
 import moe.haruue.walkee.R;
+import moe.haruue.walkee.model.User;
 import moe.haruue.walkee.ui.base.BaseActivity;
 import moe.haruue.walkee.ui.mode.ModeChooseFragment;
 import moe.haruue.walkee.ui.permission.PermissionSettingsFragment;
 import moe.haruue.walkee.ui.status.CurrentStatusFragment;
 import moe.haruue.walkee.ui.walklog.WalkLogFragment;
+import moe.haruue.walkee.util.ImageLoader;
 import moe.haruue.walkee.util.MarginViewUtils;
 
 /**
@@ -55,6 +60,7 @@ public class MainActivity extends BaseActivity {
         if (MarginViewUtils.isNeedNavigationMargin(this)) {
             navigation.getMenu().add("").setEnabled(false);
         }
+        refreshNavigationHeader();
         setFragment(currentStatusFragment);
     }
 
@@ -131,6 +137,25 @@ public class MainActivity extends BaseActivity {
                 break;
             }
         }
+    }
+
+    public void refreshNavigationHeader() {
+        View header = navigation.getHeaderView(0);
+        CircularImageView avatarView = (CircularImageView) header.findViewById(R.id.nh_avatar);
+        CircularImageView alphaView = (CircularImageView) header.findViewById(R.id.nh_avatar_alpha);
+        TextView nameView = (TextView) header.findViewById(R.id.nh_username);
+        User user = App.getInstance().getUser();
+        String username = user.username;
+        if (username == null || username.isEmpty()) {
+            username = getString(R.string.ask_username);
+        }
+        nameView.setText(username);
+        String avatar = user.avatar;
+        ImageLoader.loadLocalImage(avatar, avatarView, R.drawable.default_avatar);
+        alphaView.setOnClickListener(v -> {
+            setFragment(currentStatusFragment);
+            drawer.closeDrawer(GravityCompat.START);
+        });
     }
 
     public void installToolbar(Toolbar toolbar) {
