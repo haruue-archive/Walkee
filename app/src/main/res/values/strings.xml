@@ -7,4 +7,14 @@
     <string name="walk_log">步行记录</string>
     <string name="account_center">个人中心</string>
     <string name="current_status">当前状态</string>
+    <string name="walk">行走</string>
+    <string name="stand">站立</string>
+    <string name="your_current_status_is">您当前的状态是</string>
+    <string name="please_put_down_your_smart_phone_while_you_walking">为了您的安全，请在步行时放下手机。</string>
+    <string name="statistics">统计</string>
+    <string name="walk_distance">步行 + 跑步距离</string>
+    <string name="format_day_average">日平均值: %s</string>
+    <string name="format_distance_km">%s 公里</string>
+    <string name="time_of_walk_while_using_smart_phone">步行的同时使用手机的次数</string>
+    <string name="format_times">%s 次</string>
 </resources>

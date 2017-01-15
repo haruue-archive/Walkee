@@ -15,4 +15,19 @@
     </style>
     <style name="AppTheme.WindowTranslucent" parent="AppTheme.WindowTranslucent.Base"/>
 
+    <style name="Hide">
+        <item name="android:color">@android:color/transparent</item>
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:width">0dp</item>
+        <item name="android:height">0dp</item>
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <style name="Hide.Invisible" parent="Hide">
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="Hide.Gone" parent="Hide">
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity {
         navigation.getMenu().findItem(itemId).setChecked(true);
     }
 
-    public void resetNavigationMenuItemChecked() {
+    private void resetNavigationMenuItemChecked() {
         for (int i = 0; true; i++) {
             try {
                 navigation.getMenu().getItem(i).setChecked(false);
