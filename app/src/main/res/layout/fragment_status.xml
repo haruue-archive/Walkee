@@ -110,7 +110,7 @@
                 app:layout_collapseMode="pin">
 
                 <moe.haruue.walkee.ui.widget.StatusBarMarginView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <android.support.v7.widget.Toolbar
@@ -141,7 +141,7 @@
             <include layout="@layout/fragment_status_content"/>
 
             <moe.haruue.walkee.ui.widget.NavigationBarMarginView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>

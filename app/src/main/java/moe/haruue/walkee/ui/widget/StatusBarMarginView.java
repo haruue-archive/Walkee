@@ -30,6 +30,12 @@ public class StatusBarMarginView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (isInEditMode()) {   // just show it as a 24dp rect in edit mode
+            final float scale = getResources().getDisplayMetrics().density;
+            int height = (int) (24 * scale + 0.5f);
+            setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec), height);
+            return;
+        }
         if (MarginViewUtils.isNeedStatusBarMargin(getContext())) {
             setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec), JUtils.getStatusBarHeight());
         } else {

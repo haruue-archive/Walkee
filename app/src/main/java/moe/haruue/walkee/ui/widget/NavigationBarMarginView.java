@@ -29,6 +29,12 @@ public class NavigationBarMarginView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (isInEditMode()) {   // just show it as a 48dp rect in edit mode
+            final float scale = getResources().getDisplayMetrics().density;
+            int height = (int) (48 * scale + 0.5f);
+            setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec), height);
+            return;
+        }
         if (MarginViewUtils.isNeedNavigationMargin(getContext())) {
             setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec), JUtils.getNavigationBarHeight());
         } else {
