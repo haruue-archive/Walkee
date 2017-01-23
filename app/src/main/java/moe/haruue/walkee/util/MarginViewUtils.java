@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
+
+import moe.haruue.walkee.BuildConfig;
 
 /**
  * The utils for window translucent design of Android
@@ -17,6 +20,9 @@ import android.view.WindowManager;
  */
 
 public class MarginViewUtils {
+
+    public static final String TAG = "MarginViewUtils";
+    public static final boolean DEBUG = BuildConfig.DEBUG;
 
     public static boolean hasSoftKeys(Context context){
         boolean hasSoftwareKeys;
@@ -51,11 +57,19 @@ public class MarginViewUtils {
     }
 
     public static boolean isNeedNavigationMargin(Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && MarginViewUtils.hasSoftKeys(context) && MarginViewUtils.isScreenOrientationPortrait(context);
+        boolean result = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && MarginViewUtils.hasSoftKeys(context) && MarginViewUtils.isScreenOrientationPortrait(context);
+        if (DEBUG) {
+            Log.d(TAG, "isNeedNavigationMargin: " + result);
+        }
+        return result;
     }
 
     public static boolean isNeedStatusBarMargin(Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        boolean result = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        if (DEBUG) {
+            Log.d(TAG, "isNeedStatusBarMargin: " + result);
+        }
+        return result;
     }
 
 }
