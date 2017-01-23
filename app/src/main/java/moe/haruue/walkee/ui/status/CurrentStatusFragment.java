@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -69,6 +70,7 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
                         presenter.changeUsername(nameEdit.getText().toString());
                         nameView.setVisibility(View.VISIBLE);
                         nameEditHint.setVisibility(View.INVISIBLE);
+                        JUtils.closeInputMethod(getActivity());
                         return true;
                     }
                     return false;
@@ -85,6 +87,9 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
             });
             nameEditHint.setVisibility(View.VISIBLE);
             nameView.setVisibility(View.INVISIBLE);
+            // show ime
+            ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .showSoftInput(nameEdit, InputMethodManager.SHOW_IMPLICIT);
         });
         alphaView.setOnClickListener(v -> {
             // TODO: Choose Avatar here
