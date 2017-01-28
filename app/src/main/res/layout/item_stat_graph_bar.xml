@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="@dimen/width_stat_graph_bar"
+                android:layout_height="match_parent"
+                tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tv_stat_graph_bar_weekday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="三"
+        android:textSize="17sp"
+        android:layout_margin="5dp"/>
+
+    <View
+        android:id="@+id/hr_stat_graph_bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/tv_stat_graph_bar_weekday"
+        tools:background="@color/material_color_black"/>
+
+    <View
+        android:id="@+id/bar_stat_graph_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/hr_stat_graph_bar"
+        android:layout_margin="5dp"
+        android:layout_centerHorizontal="true"
+        tools:background="@color/material_color_blue_400"/>
+
+</RelativeLayout>

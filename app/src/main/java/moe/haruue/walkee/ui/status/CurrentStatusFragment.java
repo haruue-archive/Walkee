@@ -16,10 +16,14 @@ import android.widget.TextView;
 import com.github.siyamed.shapeimageview.CircularImageView;
 import com.jude.utils.JUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import moe.haruue.walkee.App;
 import moe.haruue.walkee.R;
 import moe.haruue.walkee.model.User;
 import moe.haruue.walkee.ui.main.BaseFragmentInMainActivity;
+import moe.haruue.walkee.ui.widget.StatisticsBarGraph;
 import moe.haruue.walkee.util.ImageLoader;
 
 /**
@@ -35,6 +39,7 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
         super.onViewCreated(view, savedInstanceState);
         getToolbar().setTitle(R.string.app_name);
         refreshHeader();
+        loadStatisticsGraphs();
     }
 
     @Nullable
@@ -94,6 +99,30 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
         alphaView.setOnClickListener(v -> {
             // TODO: Choose Avatar here
         });
+    }
+
+    private void loadStatisticsGraphs() {
+        StatisticsBarGraph distanceGraph = (StatisticsBarGraph) getView().findViewWithTag(getString(R.string.tag_sg_distance));
+        StatisticsBarGraph timeGraph = (StatisticsBarGraph) getView().findViewWithTag(getString(R.string.tag_sg_time));
+        // Generate test data
+        List<StatisticsBarGraph.Item> distances = new ArrayList<>();
+        distances.add(new StatisticsBarGraph.Item("六", 0.50));
+        distances.add(new StatisticsBarGraph.Item("日", 1.11));
+        distances.add(new StatisticsBarGraph.Item("一", 2.41));
+        distances.add(new StatisticsBarGraph.Item("二", 4.37));
+        distances.add(new StatisticsBarGraph.Item("三", 0.62));
+        distances.add(new StatisticsBarGraph.Item("四", 9.69));
+        distances.add(new StatisticsBarGraph.Item("五", 1.61));
+        List<StatisticsBarGraph.Item> times = new ArrayList<>();
+        times.add(new StatisticsBarGraph.Item("六", 9016));
+        times.add(new StatisticsBarGraph.Item("日", 17361));
+        times.add(new StatisticsBarGraph.Item("一", 9844));
+        times.add(new StatisticsBarGraph.Item("二", 16963));
+        times.add(new StatisticsBarGraph.Item("三", 8690));
+        times.add(new StatisticsBarGraph.Item("四", 4181));
+        times.add(new StatisticsBarGraph.Item("五", 4387));
+        distanceGraph.setData(distances);
+        timeGraph.setData(times);
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.view.View;
 import com.jude.utils.JUtils;
 
 import moe.haruue.walkee.util.MarginViewUtils;
+import moe.haruue.walkee.util.ViewUtils;
 
 /**
  * The view to fill in navigation bar in window translucent design of Android
@@ -30,8 +31,7 @@ public class NavigationBarMarginView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (isInEditMode()) {   // just show it as a 48dp rect in edit mode
-            final float scale = getResources().getDisplayMetrics().density;
-            int height = (int) (48 * scale + 0.5f);
+            int height = ViewUtils.dip2px(getContext(), 48);
             setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec), height);
             return;
         }

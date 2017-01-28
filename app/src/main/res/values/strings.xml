@@ -21,4 +21,6 @@
     <string name="click_to_fill_username">点这里告诉我应该如何称呼您</string>
     <string name="nickname">昵称</string>
     <string name="nickname_here">在这里输入你的昵称</string>
+    <string name="tag_sg_distance">tag_sg_distance</string>
+    <string name="tag_sg_time">sg_time</string>
 </resources>
