@@ -17,7 +17,6 @@ class CurrentStatusPresenter {
     public void changeUsername(String newUsername) {
         App.getInstance().getUser().username = newUsername;
         App.getInstance().saveUser();
-        fragment.refreshHeader();
         fragment.getMainActivity().refreshNavigationHeader();
     }
 
