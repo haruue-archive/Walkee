@@ -23,4 +23,5 @@
     <string name="nickname_here">在这里输入你的昵称</string>
     <string name="tag_sg_distance">tag_sg_distance</string>
     <string name="tag_sg_time">sg_time</string>
+    <string name="settings">设置</string>
 </resources>
