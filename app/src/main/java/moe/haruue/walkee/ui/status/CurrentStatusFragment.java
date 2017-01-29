@@ -1,6 +1,5 @@
 package moe.haruue.walkee.ui.status;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -61,12 +60,8 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
     @Override
     public void onResume() {
         super.onResume();
+        getMainActivity().setNavigationMenuItemChecked(R.id.item_current_status);
         loadStatisticsGraphs();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        getMainActivity().setNavigationMenuItemChecked(R.id.item_current_status);
-    }
 }

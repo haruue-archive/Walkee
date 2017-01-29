@@ -26,4 +26,10 @@ public class WalkLogFragment extends BaseFragmentInMainActivity {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_walklog, container, false);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getMainActivity().setNavigationMenuItemChecked(R.id.item_walk_log);
+    }
 }
