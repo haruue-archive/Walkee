@@ -22,13 +22,14 @@
         android:layout_above="@id/tv_stat_graph_bar_weekday"
         tools:background="@color/material_color_black"/>
 
-    <View
+    <ProgressBar
         android:id="@+id/bar_stat_graph_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/hr_stat_graph_bar"
         android:layout_margin="5dp"
         android:layout_centerHorizontal="true"
-        tools:background="@color/material_color_blue_400"/>
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progress_vertical"/>
 
 </RelativeLayout>

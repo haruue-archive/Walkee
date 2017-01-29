@@ -26,7 +26,6 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getToolbar().setTitle(R.string.app_name);
-        loadStatisticsGraphs();
     }
 
     @Nullable
@@ -57,6 +56,12 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
         times.add(new StatisticsBarGraph.Item("五", 4387));
         distanceGraph.setData(distances);
         timeGraph.setData(times);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadStatisticsGraphs();
     }
 
     @Override

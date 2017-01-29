@@ -39,7 +39,6 @@
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"/>
 
-            <!--fixme: fragment 重新显示时会短一大截，然而我觉得是 CoordinatorLayout 的锅-->
             <moe.haruue.walkee.ui.widget.NavigationBarMarginView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

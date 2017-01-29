@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -94,11 +95,8 @@ public class StatisticsBarGraph extends FrameLayout {
             holder.weekday.setTextColor(textColor);
             holder.weekday.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             holder.hr.setBackgroundColor(hrColor);
-            holder.bar.setBackgroundDrawable(barBackground);
-            ViewGroup.LayoutParams barParams = holder.bar.getLayoutParams();
-            barParams.height = (int) (getContext().getResources().getDimension(R.dimen.height_stat_graph_bar) * i.height);
-            barParams.width = (int) barWidth;
-            holder.bar.setLayoutParams(barParams);
+            //holder.bar.setBackgroundDrawable(barBackground);
+            holder.bar.setProgress((int) (i.height * holder.bar.getMax()));
         }
 
         @Override
@@ -110,13 +108,13 @@ public class StatisticsBarGraph extends FrameLayout {
 
             TextView weekday;
             View hr;
-            View bar;
+            ProgressBar bar;
 
             ViewHolder(ViewGroup parent) {
                 super(LayoutInflater.from(getContext()).inflate(R.layout.item_stat_graph_bar, parent, false));
                 weekday = (TextView) itemView.findViewById(R.id.tv_stat_graph_bar_weekday);
                 hr = itemView.findViewById(R.id.hr_stat_graph_bar);
-                bar = itemView.findViewById(R.id.bar_stat_graph_bar);
+                bar = (ProgressBar) itemView.findViewById(R.id.bar_stat_graph_bar);
             }
         }
 
