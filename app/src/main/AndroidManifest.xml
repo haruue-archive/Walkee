@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.mode.ModeChooseActivity"/>
+        <activity android:name=".ui.permission.PermissionSettingsActivity"/>
 
     </application>
 

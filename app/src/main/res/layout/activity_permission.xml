@@ -12,14 +12,14 @@
         android:layout_height="wrap_content">
 
         <moe.haruue.walkee.ui.widget.StatusBarMarginView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/ic_menu_white_24dp"
+            app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
             app:titleTextColor="@color/tc_toolbar_title"/>
 
     </android.support.design.widget.AppBarLayout>

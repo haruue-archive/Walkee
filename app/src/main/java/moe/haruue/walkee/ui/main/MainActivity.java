@@ -24,8 +24,8 @@ import moe.haruue.walkee.App;
 import moe.haruue.walkee.R;
 import moe.haruue.walkee.model.User;
 import moe.haruue.walkee.ui.base.BaseActivity;
-import moe.haruue.walkee.ui.mode.ModeChooseFragment;
-import moe.haruue.walkee.ui.permission.PermissionSettingsFragment;
+import moe.haruue.walkee.ui.mode.ModeChooseActivity;
+import moe.haruue.walkee.ui.permission.PermissionSettingsActivity;
 import moe.haruue.walkee.ui.status.CurrentStatusFragment;
 import moe.haruue.walkee.ui.walklog.WalkLogFragment;
 import moe.haruue.walkee.util.ImageLoader;
@@ -44,8 +44,6 @@ public class MainActivity extends BaseActivity {
     private NavigationListener navigationListener = new NavigationListener();
 
     private CurrentStatusFragment currentStatusFragment = new CurrentStatusFragment();
-    private ModeChooseFragment modeChooseFragment = new ModeChooseFragment();
-    private PermissionSettingsFragment permissionSettingsFragment = new PermissionSettingsFragment();
     private WalkLogFragment walkLogFragment = new WalkLogFragment();
 
     @Override
@@ -77,10 +75,10 @@ public class MainActivity extends BaseActivity {
                     setFragment(currentStatusFragment);
                     return true;
                 case R.id.item_mode_choose:
-                    setFragment(modeChooseFragment);
+                    ModeChooseActivity.start(MainActivity.this);
                     return true;
                 case R.id.item_permission_settings:
-                    setFragment(permissionSettingsFragment);
+                    PermissionSettingsActivity.start(MainActivity.this);
                     return true;
                 case R.id.item_walk_log:
                     setFragment(walkLogFragment);
