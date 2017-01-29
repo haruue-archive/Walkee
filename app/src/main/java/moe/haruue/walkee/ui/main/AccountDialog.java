@@ -19,6 +19,7 @@ import moe.haruue.imageselector.ImageSelector;
 import moe.haruue.walkee.App;
 import moe.haruue.walkee.BuildConfig;
 import moe.haruue.walkee.R;
+import moe.haruue.walkee.config.Const;
 import moe.haruue.walkee.model.User;
 import moe.haruue.walkee.ui.base.BaseDialog;
 import moe.haruue.walkee.util.FileUtils;
@@ -85,7 +86,7 @@ public class AccountDialog extends BaseDialog {
                     new Thread(() -> {
                         App.getInstance().getUser().username = nicknameView.getText().toString();
                         if (tmp != null) {
-                            File cache = new File(getContext().getFilesDir(), "avatar");
+                            File cache = new File(getContext().getFilesDir(), Const.FILE_NAME_AVATAR);
                             FileUtils.move(tmp, cache);
                             user.avatar = cache.getAbsolutePath();
                         }

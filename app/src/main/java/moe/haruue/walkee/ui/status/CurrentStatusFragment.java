@@ -25,6 +25,7 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter.start();
     }
 
     @Nullable
@@ -64,4 +65,9 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
         loadStatisticsGraphs();
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        presenter = null;
+    }
 }

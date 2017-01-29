@@ -6,6 +6,7 @@ import android.app.Application;
 import com.jude.utils.JUtils;
 
 import moe.haruue.walkee.config.Const;
+import moe.haruue.walkee.data.permission.PermissionDatabase;
 import moe.haruue.walkee.model.User;
 import moe.haruue.walkee.util.SPUtils;
 
@@ -25,6 +26,7 @@ public class App extends Application {
         super.onCreate();
         setInstance(this);
         JUtils.initialize(this);
+        PermissionDatabase.initialize(this);
         initializeUser();
     }
 

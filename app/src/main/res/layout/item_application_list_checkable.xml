@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                tools:ignore="ContentDescription,RtlHardcoded">
+
+    <ImageView
+        android:id="@+id/iv_item_application_list_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:src="@mipmap/ic_launcher"/>
+
+    <Switch
+        android:id="@+id/sw_item_application_list_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/tv_item_application_list_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_item_application_list_icon"
+        android:layout_toLeftOf="@id/sw_item_application_list_switch"
+        android:padding="5dp"
+        android:text="@string/app_name"
+        android:textSize="17sp"
+        android:textColor="@color/material_color_black"
+        android:lines="1"
+        android:ellipsize="end"/>
+
+</RelativeLayout>
