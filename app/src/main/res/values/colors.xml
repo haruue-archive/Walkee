@@ -8,7 +8,6 @@
     <color name="transparent">#00000000</color>
     <color name="bg_navigation_head">@color/material_color_gray_600</color>
     <color name="tc_nh_username">@color/material_color_white</color>
-    <color name="tc_toolbar_title">@color/material_color_white</color>
     <color name="tc_sh_username">@color/material_color_black</color>
     <color name="hc_sh_username_edit">@color/material_color_gray_700</color>
     <color name="bg_sc_content">@color/material_color_gray_200</color>

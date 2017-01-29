@@ -14,6 +14,7 @@ import moe.haruue.walkee.ui.main.BaseFragmentInMainActivity;
 import moe.haruue.walkee.ui.widget.StatisticsBarGraph;
 
 /**
+ * 当前状态 & MainFragment
  * @author Haruue Icymoon haruue@caoyue.com.cn
  */
 
@@ -24,7 +25,6 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getToolbar().setTitle(R.string.app_name);
     }
 
     @Nullable

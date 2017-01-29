@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import moe.haruue.walkee.R;
 import moe.haruue.walkee.ui.base.BaseActivity;
@@ -27,13 +28,18 @@ public class PermissionSettingsActivity extends BaseActivity {
     }
 
     private void initializeToolbar() {
-        toolbar.setTitle(R.string.permission_settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_permission_toolbar, menu);
+        return true;
     }
 
     public static void start(Context context) {

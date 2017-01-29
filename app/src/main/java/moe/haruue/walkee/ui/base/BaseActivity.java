@@ -4,6 +4,8 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import moe.haruue.walkee.BuildConfig;
+
 /**
  * Base Activity for all normal Activity <br>
  *     extends this activity in every Activity.
@@ -11,6 +13,9 @@ import android.view.View;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    public static final String TAG = "BaseActivity";
+    public static final boolean DEBUG = BuildConfig.DEBUG;
 
     /**
      * A simple version of {@link #findViewById(int)}

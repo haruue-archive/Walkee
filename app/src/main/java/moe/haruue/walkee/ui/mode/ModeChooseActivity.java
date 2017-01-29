@@ -27,7 +27,6 @@ public class ModeChooseActivity extends BaseActivity {
     }
 
     private void initializeToolbar() {
-        toolbar.setTitle(R.string.mode_choose);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
         if (getSupportActionBar() != null) {

@@ -15,9 +15,9 @@ import com.github.siyamed.shapeimageview.CircularImageView;
 
 import java.io.File;
 
-import moe.haruue.imageselector.BuildConfig;
 import moe.haruue.imageselector.ImageSelector;
 import moe.haruue.walkee.App;
+import moe.haruue.walkee.BuildConfig;
 import moe.haruue.walkee.R;
 import moe.haruue.walkee.model.User;
 import moe.haruue.walkee.ui.base.BaseDialog;

@@ -25,7 +25,7 @@ import java.io.File;
 public class ShadowActivity extends AppCompatActivity {
 
     public static final String TAG = "ImageSelector";
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = BuildConfig.DEBUG;
     public static final int REQUEST_CODE_PICK = 51321;
     public static final int REQUEST_CODE_CROP = 34887;
     public static final int REQUEST_CODE_PERMISSION = 41248;

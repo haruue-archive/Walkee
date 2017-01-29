@@ -27,5 +27,8 @@
     <string name="account_info">个人资料信息</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
-    <string name="loading">处理中...</string>
+    <string name="loading">处理中…</string>
+    <string name="summary_permission_settings">添加默许使用的应用程序</string>
+    <string name="summary_mode_choose">更改此程序运行的模式</string>
+    <string name="hide_system_application">隐藏系统应用</string>
 </resources>

@@ -10,6 +10,7 @@ import moe.haruue.walkee.R;
 import moe.haruue.walkee.ui.main.BaseFragmentInMainActivity;
 
 /**
+ * 步行记录
  * @author Haruue Icymoon haruue@caoyue.com.cn
  */
 
@@ -18,7 +19,6 @@ public class WalkLogFragment extends BaseFragmentInMainActivity {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getToolbar().setTitle(R.string.walk_log);
     }
 
     @Nullable
