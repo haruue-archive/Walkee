@@ -24,4 +24,8 @@
     <string name="tag_sg_distance">tag_sg_distance</string>
     <string name="tag_sg_time">sg_time</string>
     <string name="settings">设置</string>
+    <string name="account_info">个人资料信息</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="loading">处理中...</string>
 </resources>

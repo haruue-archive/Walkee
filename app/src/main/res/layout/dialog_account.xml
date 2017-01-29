@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="400dp"
+              android:layout_height="wrap_content"
+              android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tv_dialog_account_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account_info"
+        android:textSize="24sp"
+        android:textColor="@color/material_color_black"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/fl_dialog_account_avatar_container"
+            android:layout_width="@dimen/size_drawer_head_avatar"
+            android:layout_height="@dimen/size_drawer_head_avatar"
+            android:layout_margin="10dp">
+
+            <com.github.siyamed.shapeimageview.CircularImageView
+                android:id="@+id/civ_dialog_account_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/default_avatar"/>
+
+            <com.github.siyamed.shapeimageview.CircularImageView
+                android:id="@+id/civ_dialog_account_avatar_alpha"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/circle_alpha_selectable_white"/>
+
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/tv_dialog_account_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:hint="@string/nickname"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/bt_dialog_account_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="2dp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/cancel"
+            android:textColor="?attr/colorAccent"/>
+
+        <TextView
+            android:id="@+id/bt_dialog_account_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_margin="2dp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/ok"
+            android:textColor="?attr/colorAccent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

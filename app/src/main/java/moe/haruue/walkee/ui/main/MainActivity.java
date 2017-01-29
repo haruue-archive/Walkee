@@ -152,10 +152,7 @@ public class MainActivity extends BaseActivity {
         nameView.setText(username);
         String avatar = user.avatar;
         ImageLoader.loadLocalImage(avatar, avatarView, R.drawable.default_avatar);
-        alphaView.setOnClickListener(v -> {
-            setFragment(currentStatusFragment);
-            drawer.closeDrawer(GravityCompat.START);
-        });
+        alphaView.setOnClickListener(v -> new AccountDialog(this, this::refreshNavigationHeader).show());
     }
 
     public void installToolbar(Toolbar toolbar) {
