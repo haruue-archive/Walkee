@@ -39,6 +39,7 @@ public class PermissionSettingsActivity extends BaseActivity {
         initializeToolbar();
         progress = new ProgressDialog(this);
         progress.setMessage(getString(R.string.loading));
+        progress.setCancelable(false);
         progress.show();
         recycler = $(R.id.rv_permission_application_list);
         adapter = new ApplicationCheckedAdapter();
