@@ -20,11 +20,12 @@ import moe.haruue.walkee.ui.widget.StatisticsBarGraph;
 
 public class CurrentStatusFragment extends BaseFragmentInMainActivity {
 
-    CurrentStatusPresenter presenter = new CurrentStatusPresenter(this);
+    CurrentStatusPresenter presenter;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter = new CurrentStatusPresenter(this);
         presenter.start();
     }
 
