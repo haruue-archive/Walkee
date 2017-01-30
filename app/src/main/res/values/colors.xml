@@ -20,4 +20,8 @@
     <color name="tc_sc_statistics_graph_subtitle">@color/material_color_gray_400</color>
     <color name="bg_sc_card_statistics_time">@color/material_color_orange_800</color>
     <color name="bc_avatar_border">@color/material_color_white</color>
+    <color name="bg_sc_card_mode_hard">@color/material_color_red_700</color>
+    <color name="tc_mode_card_title">@color/material_color_white</color>
+    <color name="tc_mode_card_summary">#BBFFFFFF</color>
+    <color name="bg_sc_card_mode_easy">@color/material_color_blue_700</color>
 </resources>

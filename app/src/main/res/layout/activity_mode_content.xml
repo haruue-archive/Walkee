@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              tools:ignore="ContentDescription">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_mode_hard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginRight="-2dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:id="@+id/ll_mode_hard_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/bg_sc_card_mode_hard"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_mode_hard"
+                android:textColor="@color/tc_mode_card_title"
+                android:textSize="@dimen/ts_mode_card_title"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/summary_mode_hard"
+                android:textColor="@color/tc_mode_card_summary"
+                android:textSize="@dimen/ts_mode_card_summary"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_mode_hard_check"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_check_white_24dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="10dp"/>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_mode_easy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginRight="-2dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:id="@+id/ll_mode_easy_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/bg_sc_card_mode_easy"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_mode_easy"
+                android:textColor="@color/tc_mode_card_title"
+                android:textSize="@dimen/ts_mode_card_title"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/summary_mode_easy"
+                android:textColor="@color/tc_mode_card_summary"
+                android:textSize="@dimen/ts_mode_card_summary"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_mode_easy_check"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_check_white_24dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="10dp"/>
+
+    </android.support.v7.widget.CardView>
+
+    <FrameLayout
+        android:id="@+id/fl_fragment_mode_time_customize_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+</LinearLayout>
