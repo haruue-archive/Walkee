@@ -36,17 +36,8 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
     }
 
     private void loadStatisticsGraphs() {
-        StatisticsBarGraph distanceGraph = (StatisticsBarGraph) getView().findViewWithTag(getString(R.string.tag_sg_distance));
         StatisticsBarGraph timeGraph = (StatisticsBarGraph) getView().findViewWithTag(getString(R.string.tag_sg_time));
         // Generate test data
-        List<StatisticsBarGraph.Item> distances = new ArrayList<>();
-        distances.add(new StatisticsBarGraph.Item("六", 0.50));
-        distances.add(new StatisticsBarGraph.Item("日", 1.11));
-        distances.add(new StatisticsBarGraph.Item("一", 2.41));
-        distances.add(new StatisticsBarGraph.Item("二", 4.37));
-        distances.add(new StatisticsBarGraph.Item("三", 0.62));
-        distances.add(new StatisticsBarGraph.Item("四", 9.69));
-        distances.add(new StatisticsBarGraph.Item("五", 1.61));
         List<StatisticsBarGraph.Item> times = new ArrayList<>();
         times.add(new StatisticsBarGraph.Item("六", 9016));
         times.add(new StatisticsBarGraph.Item("日", 17361));
@@ -55,7 +46,6 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
         times.add(new StatisticsBarGraph.Item("三", 8690));
         times.add(new StatisticsBarGraph.Item("四", 4181));
         times.add(new StatisticsBarGraph.Item("五", 4387));
-        distanceGraph.setData(distances);
         timeGraph.setData(times);
     }
 
