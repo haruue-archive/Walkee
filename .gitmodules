@@ -1,0 +1,4 @@
+[submodule "BasePedo"]
+	path = BasePedo
+	url = git@github.com:haruue/BasePedo.git
+	branch = library
