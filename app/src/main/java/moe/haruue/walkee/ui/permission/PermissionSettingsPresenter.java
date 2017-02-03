@@ -1,8 +1,6 @@
 package moe.haruue.walkee.ui.permission;
 
 import android.content.pm.ApplicationInfo;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,8 +12,8 @@ import moe.haruue.walkee.data.permission.func.DeletePermissionFunc;
 import moe.haruue.walkee.data.permission.func.InsertPermissionFunc;
 import moe.haruue.walkee.model.ApplicationCheckedInfo;
 import moe.haruue.walkee.ui.base.BasePresenter;
+import moe.haruue.walkee.ui.base.BaseSubscriber;
 import rx.Observable;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -62,20 +60,7 @@ class PermissionSettingsPresenter implements BasePresenter {
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<ApplicationCheckedInfo>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (DEBUG) {
-                            Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                        Log.e(TAG, "requireApplicationCheckedInfoList: onError", e);
-                    }
-
+                .subscribe(new BaseSubscriber<List<ApplicationCheckedInfo>>(TAG, "requireApplicationCheckedInfoList") {
                     @Override
                     public void onNext(List<ApplicationCheckedInfo> list) {
                         activity.onGetApplicationCheckedInfoList(list);
@@ -95,25 +80,7 @@ class PermissionSettingsPresenter implements BasePresenter {
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApplicationCheckedInfo>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        if (DEBUG) {
-                            Toast.makeText(activity, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                        Log.e(TAG, "onApplicationCheckedStateChange: onError", e);
-                    }
-
-                    @Override
-                    public void onNext(ApplicationCheckedInfo info) {
-
-                    }
-                });
+                .subscribe(new BaseSubscriber<>(TAG, "onApplicationCheckedStateChange"));
     }
 
     @Override

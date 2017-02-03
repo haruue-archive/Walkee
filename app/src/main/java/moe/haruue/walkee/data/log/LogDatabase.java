@@ -1,4 +1,4 @@
-package moe.haruue.walkee.data.permission;
+package moe.haruue.walkee.data.log;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,19 +7,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 import moe.haruue.walkee.config.Const;
 
 /**
- * Database to store permission settings
+ * Database to store walk log, such as the times of playing mobile while walking per day
  * @author Haruue Icymoon haruue@caoyue.com.cn
  */
 
-public class PermissionDatabase extends SQLiteOpenHelper {
+public class LogDatabase extends SQLiteOpenHelper {
 
-    public static final String NAME = Const.DB_NAME_PERMISSION;
-    public static final int VER = Const.DB_VER_PERMISSION;
+    public static final String NAME = Const.DB_NAME_LOG;
+    public static final int VER = Const.DB_VER_LOG;
 
-    private static PermissionDatabase database;
+    private static LogDatabase database;
 
     public static void initialize(Context context) {
-        database = new PermissionDatabase(context);
+        database = new LogDatabase(context);
     }
 
     public static SQLiteDatabase getDatabase() {
@@ -30,18 +30,19 @@ public class PermissionDatabase extends SQLiteOpenHelper {
         return database.getReadableDatabase();
     }
 
-    public static final String TABLE_PERMISSION = "permission";
-    public static final String COLUMN_PACKAGE_NAME = "package_name";
+    public static final String TABLE_WALK_LOG = "walk_log";
+    public static final String COLUMN_TIME_IN_MILLIS = "time_in_millis";
 
-    private PermissionDatabase(Context context) {
+
+    private LogDatabase(Context context) {
         super(context, NAME, null, VER);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_PERMISSION + " (" +
-                COLUMN_PACKAGE_NAME + " TEXT" +
-                " )");
+        db.execSQL("CREATE TABLE " + TABLE_WALK_LOG + " (" +
+                COLUMN_TIME_IN_MILLIS + " INTEGER" +
+                ")");
     }
 
     @Override

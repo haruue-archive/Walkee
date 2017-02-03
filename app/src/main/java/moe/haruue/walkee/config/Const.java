@@ -17,8 +17,13 @@ public class Const {
 
     public static final String DB_NAME_PERMISSION = "permission.db";
     public static final int DB_VER_PERMISSION = 1;
+    public static final String DB_NAME_LOG = "log.db";
+    public static final int DB_VER_LOG = 1;
 
     public static final int MODE_EASY = 0;
     public static final int MODE_HARD = 1;
+
+    public static final long INTERVAL_QUERY_STEP = 250;
+    public static final long TIMEOUT_BACK_STAND = 1000;
 
 }

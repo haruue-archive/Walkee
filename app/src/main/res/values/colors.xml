@@ -11,7 +11,7 @@
     <color name="tc_sh_username">@color/material_color_black</color>
     <color name="hc_sh_username_edit">@color/material_color_gray_700</color>
     <color name="bg_sc_content">@color/material_color_gray_200</color>
-    <color name="bg_sc_card_status_stop">@color/material_color_blue_800</color>
+    <color name="bg_sc_card_status_stand">@color/material_color_blue_800</color>
     <color name="bg_sc_card_status_walk">@color/material_color_red_800</color>
     <color name="tc_sc_card_status_text">@color/material_color_white</color>
     <color name="tc_sc_category_tag">@color/material_color_black</color>

@@ -168,4 +168,12 @@ public class MainActivity extends BaseActivity {
         context.startActivity(starter);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

@@ -2,13 +2,17 @@ package moe.haruue.walkee.ui.status;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import moe.haruue.walkee.BuildConfig;
 import moe.haruue.walkee.R;
 import moe.haruue.walkee.ui.main.BaseFragmentInMainActivity;
 import moe.haruue.walkee.ui.widget.StatisticsBarGraph;
@@ -20,13 +24,20 @@ import moe.haruue.walkee.ui.widget.StatisticsBarGraph;
 
 public class CurrentStatusFragment extends BaseFragmentInMainActivity {
 
+    public static final String TAG = "CurrentStatusF";
+    public static final boolean DEBUG = BuildConfig.DEBUG;
+
     CurrentStatusPresenter presenter;
+
+    RelativeLayout statusContainer;
+    TextView statusTextView;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        statusContainer = $(R.id.rl_status_current_status_container);
+        statusTextView = $(R.id.tv_status_current_status_text);
         presenter = new CurrentStatusPresenter(this);
-        presenter.start();
     }
 
     @Nullable
@@ -49,11 +60,44 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
         timeGraph.setData(times);
     }
 
+    @SuppressWarnings("deprecation")
+    public void setStatusWalk() {
+        if (DEBUG) {
+            Log.d(TAG, "setStatusWalk");
+        }
+        try {
+            statusContainer.setBackgroundColor(getMainActivity().getResources().getColor(R.color.bg_sc_card_status_walk));
+            statusTextView.setText(R.string.walk);
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public void setStatusStand() {
+        if (DEBUG) {
+            Log.d(TAG, "setStatusStand");
+        }
+        try {
+            statusContainer.setBackgroundColor(getMainActivity().getResources().getColor(R.color.bg_sc_card_status_stand));
+            statusTextView.setText(R.string.stand);
+        } catch (Exception ignored) {
+
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         getMainActivity().setNavigationMenuItemChecked(R.id.item_current_status);
+        presenter.start();
         loadStatisticsGraphs();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.stop();
     }
 
     @Override
