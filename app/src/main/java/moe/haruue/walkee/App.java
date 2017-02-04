@@ -22,7 +22,6 @@ public class App extends BasePedoApplication {
     @SuppressLint("StaticFieldLeak")
     private static App instance;
     private User user;
-    private int currentStep = 0;
 
     @Override
     public void onCreate() {
@@ -49,26 +48,6 @@ public class App extends BasePedoApplication {
             initializeUser();
         }
         return user;
-    }
-
-    /**
-     * store the current step to application instance, and get whether user is walking
-     * @param currentStep the current step returned from {@link com.base.basepedo.service.StepService}
-     * @return is walking
-     */
-    public boolean setCurrentStep(int currentStep) {
-        if (this.currentStep == 0) {
-            this.currentStep = currentStep;
-            return false;
-        } else {
-            if (currentStep > this.currentStep) {
-                this.currentStep = currentStep;
-                return true;
-            } else {
-                this.currentStep = currentStep;
-                return false;
-            }
-        }
     }
 
     public void saveUser() {

@@ -23,7 +23,7 @@ public class Const {
     public static final int MODE_EASY = 0;
     public static final int MODE_HARD = 1;
 
-    public static final long INTERVAL_QUERY_STEP = 250;
-    public static final long TIMEOUT_BACK_STAND = 1000;
+    public static final long INTERVAL = 250;
+    public static final long TIMEOUT_BACK_STAND = 700;
 
 }

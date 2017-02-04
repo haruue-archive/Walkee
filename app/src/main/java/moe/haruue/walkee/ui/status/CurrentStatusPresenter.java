@@ -1,25 +1,19 @@
 package moe.haruue.walkee.ui.status;
 
 import android.app.ActivityManager;
-import android.content.ComponentName;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
+import android.content.IntentFilter;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.os.Messenger;
-import android.os.RemoteException;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.base.basepedo.config.Constant;
 import com.base.basepedo.service.StepService;
 
 import java.util.List;
 
-import moe.haruue.walkee.App;
 import moe.haruue.walkee.BuildConfig;
 import moe.haruue.walkee.config.Const;
 import moe.haruue.walkee.ui.base.BasePresenter;
@@ -33,6 +27,8 @@ class CurrentStatusPresenter implements BasePresenter, Handler.Callback {
     public static final String TAG = "CurrentStatusP";
     public static final boolean DEBUG = BuildConfig.DEBUG;
 
+    public static final int MSG_BACK_STAND = 9347823;
+
     private CurrentStatusFragment fragment;
 
     CurrentStatusPresenter(CurrentStatusFragment fragment) {
@@ -40,62 +36,27 @@ class CurrentStatusPresenter implements BasePresenter, Handler.Callback {
     }
 
     private Handler handler;
-    private Messenger messenger;
 
     private long lastStep = 0;
 
-    ServiceConnection connection = new ServiceConnection() {
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            try {
-                messenger = new Messenger(service);
-                Message msg = Message.obtain(null, Constant.MSG_FROM_CLIENT);
-                msg.replyTo = new Messenger(handler);
-                messenger.send(msg);
-            } catch (RemoteException e) {
-                if (DEBUG) {
-                    Toast.makeText(fragment.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.wtf(TAG, "onServiceConnected: ", e);
-                } else {
-                    Log.e(TAG, "onServiceConnected: ", e);
-                }
+        public void onReceive(Context context, Intent intent) {
+            if (Constant.ACTION_PER_STEP.equals(intent.getAction())) {
+                lastStep = System.currentTimeMillis();
+                fragment.setStatusWalk();
             }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
         }
     };
 
     @Override
     public boolean handleMessage(Message msg) {
         switch (msg.what) {
-            case Constant.MSG_FROM_SERVER:
-                int step = msg.getData().getInt("step");
-                if (App.getInstance().setCurrentStep(step)) {
-                    lastStep = System.currentTimeMillis();
-                    fragment.setStatusWalk();
+            case MSG_BACK_STAND:
+                if (System.currentTimeMillis() - lastStep > Const.TIMEOUT_BACK_STAND) {
+                    fragment.setStatusStand();
                 }
-                handler.sendEmptyMessageDelayed(Constant.REQUEST_SERVER, Const.INTERVAL_QUERY_STEP);
-                break;
-            case Constant.REQUEST_SERVER:
-                try {
-                    Message msg1 = Message.obtain(null, Constant.MSG_FROM_CLIENT);
-                    msg1.replyTo = new Messenger(handler);
-                    messenger.send(msg1);
-                    if (System.currentTimeMillis() - lastStep >= Const.TIMEOUT_BACK_STAND) {
-                        fragment.setStatusStand();
-                    }
-                } catch (RemoteException e) {
-                    if (DEBUG) {
-                        Toast.makeText(fragment.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        Log.wtf(TAG, "onServiceConnected: ", e);
-                    } else {
-                        Log.e(TAG, "onServiceConnected: ", e);
-                    }
-                }
-                break;
+                handler.sendEmptyMessageDelayed(MSG_BACK_STAND, Const.INTERVAL);
         }
         return false;
     }
@@ -103,11 +64,13 @@ class CurrentStatusPresenter implements BasePresenter, Handler.Callback {
     @Override
     public void start() {
         handler = new Handler(Looper.getMainLooper(), this);
+        handler.sendEmptyMessage(MSG_BACK_STAND);
         startServiceForStrategy();
+        fragment.getMainActivity().registerReceiver(receiver, new IntentFilter(Constant.ACTION_PER_STEP));
     }
 
     public void stop() {
-        fragment.getMainActivity().unbindService(connection);
+        fragment.getMainActivity().unregisterReceiver(receiver);
     }
 
     /**
@@ -135,24 +98,10 @@ class CurrentStatusPresenter implements BasePresenter, Handler.Callback {
         return isWork;
     }
 
-    /**
-     * 启动service
-     *
-     * @param flag true-bind和start两种方式一起执行 false-只执行bind方式
-     */
-    private void setupService(boolean flag) {
-        Intent intent = new Intent(fragment.getMainActivity(), StepService.class);
-        fragment.getMainActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE);
-        if (flag) {
-            fragment.getMainActivity().startService(intent);
-        }
-    }
-
     private void startServiceForStrategy() {
         if (!isServiceWork(fragment.getMainActivity(), StepService.class.getName())) {
-            setupService(true);
-        } else {
-            setupService(false);
+            Intent intent = new Intent(fragment.getMainActivity(), StepService.class);
+            fragment.getMainActivity().startService(intent);
         }
     }
 
