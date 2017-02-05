@@ -38,7 +38,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     }
 
     @Override
-    public void onNext(Object o) {
+    public void onNext(T t) {
 
     }
 }

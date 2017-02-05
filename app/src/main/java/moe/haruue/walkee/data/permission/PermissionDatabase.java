@@ -1,9 +1,11 @@
 package moe.haruue.walkee.data.permission;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import moe.haruue.walkee.App;
 import moe.haruue.walkee.config.Const;
 
 /**
@@ -42,6 +44,10 @@ public class PermissionDatabase extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_PERMISSION + " (" +
                 COLUMN_PACKAGE_NAME + " TEXT" +
                 " )");
+        // add self first
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PACKAGE_NAME, App.getInstance().getPackageName());
+        db.insert(TABLE_PERMISSION, null, values);
     }
 
     @Override

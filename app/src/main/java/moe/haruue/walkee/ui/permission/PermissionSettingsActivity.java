@@ -2,14 +2,17 @@ package moe.haruue.walkee.ui.permission;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class PermissionSettingsActivity extends BaseActivity {
         setContentView(R.layout.activity_permission);
         toolbar = $(R.id.toolbar);
         initializeToolbar();
+        if (!presenter.checkUsageStatsPermission()) return;
         progress = new ProgressDialog(this);
         progress.setMessage(getString(R.string.loading));
         progress.setCancelable(false);
@@ -47,6 +51,7 @@ public class PermissionSettingsActivity extends BaseActivity {
         recycler.setAdapter(adapter);
         presenter.start();
         adapter.setOnSwitchListener(i -> presenter.onApplicationCheckedStateChange(i));
+        presenter.checkUsageStatsPermission();
         // Load it in {@link #onCreateOptionsMenu(Menu)}
         //presenter.requireApplicationCheckedInfoList(hideSystemApplicationSwitch.isChecked());
     }
@@ -77,6 +82,19 @@ public class PermissionSettingsActivity extends BaseActivity {
         });
         presenter.requireApplicationCheckedInfoList(!hideSystemApplicationSwitch.isChecked());
         return true;
+    }
+
+    public void showUsageStatsRequestDialog(DialogInterface.OnClickListener onPositiveButtonClickListener) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.permission_request)
+                .setMessage(R.string.usage_stats_permission_request_message)
+                .setPositiveButton(R.string.set_permission_now, onPositiveButtonClickListener)
+                .setNegativeButton(R.string.cancel, (dialog1, which) -> {
+                    finish();
+                    Toast.makeText(this, R.string.usage_stats_permission_denied_message, Toast.LENGTH_SHORT).show();
+                })
+                .create();
+        dialog.show();
     }
 
     @Override

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="moe.haruue.walkee">
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+                     tools:ignore="ProtectedPermissions"/>
 
     <application
         android:name=".App"
@@ -19,6 +24,13 @@
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.mode.ModeChooseActivity"/>
         <activity android:name=".ui.permission.PermissionSettingsActivity"/>
+        <service android:name=".ui.floatalert.FloatAlertService"/>
+        <receiver android:name=".ui.floatalert.FloatAlertBroadcastReceiver"
+                  android:exported="false">
+            <intent-filter>
+                <action android:name="moe.haruue.walkee.action.PER_STEP"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

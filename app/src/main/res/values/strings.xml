@@ -42,4 +42,10 @@
     <string name="pref_key_customize_time_switch" translatable="false">customize_time</string>
     <string name="title_customize_time_start">设定开始时间</string>
     <string name="title_customize_time_end">设定结束时间</string>
+    <string name="float_alert_title">为了您的安全，使用手机前请先停下脚步</string>
+    <string name="float_alert_summary">在您停下之后，本警告条将会自动消失。</string>
+    <string name="permission_request">权限请求</string>
+    <string name="usage_stats_permission_request_message">要正常使用本应用的权限系统，你需要授予本应用“有权查看使用情况的应用”权限。</string>
+    <string name="set_permission_now">现在就去设置</string>
+    <string name="usage_stats_permission_denied_message">因为没有“有权查看使用情况的应用”权限，本应用的权限管理功能无法正常工作。</string>
 </resources>

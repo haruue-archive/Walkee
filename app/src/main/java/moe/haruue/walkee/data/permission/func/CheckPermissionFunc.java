@@ -17,17 +17,22 @@ public class CheckPermissionFunc implements Func1<ApplicationInfo, ApplicationCh
     @Override
     public ApplicationCheckedInfo call(ApplicationInfo info) {
         ApplicationCheckedInfo checked = new ApplicationCheckedInfo(info);
+        checked.checked = checkPermission(info.packageName);
+        return checked;
+    }
+
+    public static boolean checkPermission(String packageName) {
         SQLiteDatabase database = PermissionDatabase.getDatabaseReadonly();
         Cursor cursor = database.query(
                 PermissionDatabase.TABLE_PERMISSION,
                 new String[]{PermissionDatabase.COLUMN_PACKAGE_NAME},
                 PermissionDatabase.COLUMN_PACKAGE_NAME + "=?",
-                new String[]{info.packageName},
+                new String[]{packageName},
                 null,
                 null,
                 null
         );
-        checked.checked = cursor.getCount() > 0;
+        boolean checked = cursor.getCount() > 0;
         cursor.close();
         return checked;
     }

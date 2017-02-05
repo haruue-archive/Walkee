@@ -1,6 +1,7 @@
 package moe.haruue.walkee.ui.permission;
 
 import android.content.pm.ApplicationInfo;
+import android.os.Build;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import moe.haruue.walkee.data.permission.func.InsertPermissionFunc;
 import moe.haruue.walkee.model.ApplicationCheckedInfo;
 import moe.haruue.walkee.ui.base.BasePresenter;
 import moe.haruue.walkee.ui.base.BaseSubscriber;
+import moe.haruue.walkee.util.UsageStatsUtils;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -81,6 +83,19 @@ class PermissionSettingsPresenter implements BasePresenter {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<>(TAG, "onApplicationCheckedStateChange"));
+    }
+
+    public boolean checkUsageStatsPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (UsageStatsUtils.hasOption(activity) && !UsageStatsUtils.isChecked(activity)) {
+                activity.showUsageStatsRequestDialog((dialog, which) -> {
+                    UsageStatsUtils.requestPermission(activity);
+                    activity.finish();
+                });
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

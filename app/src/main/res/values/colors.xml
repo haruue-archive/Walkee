@@ -24,4 +24,7 @@
     <color name="tc_mode_card_title">@color/material_color_white</color>
     <color name="tc_mode_card_summary">#BBFFFFFF</color>
     <color name="bg_sc_card_mode_easy">@color/material_color_blue_700</color>
+    <color name="tc_float_alert_title">@color/material_color_black</color>
+    <color name="tc_float_alert_summary">@color/material_color_gray_700</color>
+    <color name="bg_float_alert_card">@color/material_color_white</color>
 </resources>

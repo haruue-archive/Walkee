@@ -25,5 +25,6 @@ public class Const {
 
     public static final long INTERVAL = 250;
     public static final long TIMEOUT_BACK_STAND = 700;
+    public static final long TIMEOUT_BACK_STAND_LONG = 1400;
 
 }
