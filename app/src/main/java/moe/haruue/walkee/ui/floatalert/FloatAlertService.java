@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -16,6 +18,7 @@ import android.view.WindowManager;
 
 import com.base.basepedo.config.Constant;
 
+import moe.haruue.walkee.BuildConfig;
 import moe.haruue.walkee.config.Const;
 
 /**
@@ -23,6 +26,9 @@ import moe.haruue.walkee.config.Const;
  */
 
 public class FloatAlertService extends Service implements Handler.Callback {
+
+    public static final String TAG = "FloatAlertService";
+    public static final boolean DEBUG = BuildConfig.DEBUG;
 
     private FloatAlertView alertView;
     private WindowManager manager;
@@ -45,32 +51,50 @@ public class FloatAlertService extends Service implements Handler.Callback {
     public void onCreate() {
         super.onCreate();
         lastStep = System.currentTimeMillis();
+        registerReceiver(receiver, new IntentFilter(Constant.ACTION_PER_STEP));
         handler = new Handler(Looper.getMainLooper(), this);
+        handler.sendEmptyMessage(MSG_CHECK_STOP);
+    }
+
+    private void showFloatAlert() {
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         params.x = 0;
         params.y = 0;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.gravity = Gravity.TOP;
+        params.format = PixelFormat.TRANSPARENT;
+        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
         params.type = WindowManager.LayoutParams.TYPE_TOAST;
-        try {
-            getWindowManager().addView(getAlertView(), params);
-        } catch (Exception ignored) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            // remove it before add it on Android 7.1.1, otherwise the view will be auto hidden by system
+            // @see aosp/frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java:2102
+            try {
+                getWindowManager().removeView(getAlertView());
+            } catch (Exception ignored) {}
         }
-        registerReceiver(receiver, new IntentFilter(Constant.ACTION_PER_STEP));
-        handler.sendEmptyMessageDelayed(MSG_CHECK_STOP, Const.INTERVAL);
+        try {
+            if (getAlertView().getParent() == null) {
+                getWindowManager().addView(getAlertView(), params);
+            }
+        } catch (Exception ignored) {}
+    }
+
+    private void hideFloatAlert() {
+        try {
+            if (getAlertView().getParent() != null) {
+                getWindowManager().removeView(getAlertView());
+            }
+        } catch (Exception ignored) {}
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(receiver);
-        try {
-            getWindowManager().removeView(getAlertView());
-        } catch (Exception ignored) {
-
-        }
+        hideFloatAlert();
     }
 
     @Override
@@ -79,8 +103,10 @@ public class FloatAlertService extends Service implements Handler.Callback {
             case MSG_CHECK_STOP:
                 if (System.currentTimeMillis() - lastStep > Const.TIMEOUT_BACK_STAND_LONG) {
                     stopSelf();
+                } else {
+                    showFloatAlert();
+                    handler.sendEmptyMessageDelayed(MSG_CHECK_STOP, Const.INTERVAL);
                 }
-                handler.sendEmptyMessageDelayed(MSG_CHECK_STOP, Const.INTERVAL);
                 return true;
         }
         return false;

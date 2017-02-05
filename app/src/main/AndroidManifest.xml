@@ -24,7 +24,8 @@
         <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.mode.ModeChooseActivity"/>
         <activity android:name=".ui.permission.PermissionSettingsActivity"/>
-        <service android:name=".ui.floatalert.FloatAlertService"/>
+        <service android:name=".ui.floatalert.FloatAlertService"
+                 android:process=":floatalert"/>
         <receiver android:name=".ui.floatalert.FloatAlertBroadcastReceiver"
                   android:exported="false">
             <intent-filter>
