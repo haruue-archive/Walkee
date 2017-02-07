@@ -27,4 +27,9 @@
     <color name="tc_float_alert_title">@color/material_color_black</color>
     <color name="tc_float_alert_summary">@color/material_color_gray_700</color>
     <color name="bg_float_alert_card">@color/material_color_white</color>
+    <color name="tc_fullscreen_message">@color/material_color_black</color>
+    <color name="bg_circle_button_red">@color/material_color_red_600</color>
+    <color name="bg_circle_button_red_selected">@color/material_color_red_200</color>
+    <color name="tc_fullscreen_button">@color/material_color_white</color>
+    <color name="bg_fullscreen">@color/material_color_white</color>
 </resources>

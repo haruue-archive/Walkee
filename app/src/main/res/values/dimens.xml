@@ -10,4 +10,9 @@
     <dimen name="ts_dialog_title">24sp</dimen>
     <dimen name="ts_float_alert_title">18sp</dimen>
     <dimen name="ts_float_alert_summary">14sp</dimen>
+    <dimen name="padding_fullscreen_container">15dp</dimen>
+    <dimen name="ts_fullscreen_message">30sp</dimen>
+    <dimen name="size_fullscreen_button">80dp</dimen>
+    <dimen name="margin_fullscreen_button">30dp</dimen>
+    <dimen name="ts_fullscreen_button">30sp</dimen>
 </resources>

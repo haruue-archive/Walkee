@@ -10,9 +10,9 @@ import moe.haruue.walkee.R;
  * @author Haruue Icymoon haruue@caoyue.com.cn
  */
 
-public class FloatAlertView extends FrameLayout {
-    public FloatAlertView(Context context) {
+public class FloatFullscreenLockView extends FrameLayout {
+    public FloatFullscreenLockView(Context context) {
         super(context);
-        LayoutInflater.from(context).inflate(R.layout.float_alert, this);
+        LayoutInflater.from(context).inflate(R.layout.float_fullscreen_lock, this);
     }
 }

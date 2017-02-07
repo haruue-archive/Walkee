@@ -12,14 +12,18 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.base.basepedo.config.Constant;
 
+import moe.haruue.walkee.App;
 import moe.haruue.walkee.BuildConfig;
+import moe.haruue.walkee.R;
 import moe.haruue.walkee.config.Const;
+import moe.haruue.walkee.util.SPUtils;
 
 /**
  * @author Haruue Icymoon haruue@caoyue.com.cn
@@ -30,13 +34,20 @@ public class FloatAlertService extends Service implements Handler.Callback {
     public static final String TAG = "FloatAlertService";
     public static final boolean DEBUG = BuildConfig.DEBUG;
 
-    private FloatAlertView alertView;
+    private View alertView;
+    private WindowManager.LayoutParams alertParams;
     private WindowManager manager;
 
     private Handler handler;
     private long lastStep = 0;
+    private long start = 0;
+    private int mode;
 
     public static final int MSG_CHECK_STOP = 93190719;
+    public static final int SHOW_ALERT_BAR = 0;
+    public static final int SHOW_FULLSCREEN_HARD_LOCK = 1;
+    public static final int SHOW_FULLSCREEN_HARD_UNLOCK = 2;
+    public static final int SHOW_EMPTY = 3;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -50,34 +61,22 @@ public class FloatAlertService extends Service implements Handler.Callback {
     @Override
     public void onCreate() {
         super.onCreate();
+        mode = (int) SPUtils.get(getApplicationContext(), Const.SPKEY_MODE, Const.MODE_EASY);
+        Log.v(TAG, "mode=" + mode);
+        start = System.currentTimeMillis();
         lastStep = System.currentTimeMillis();
         registerReceiver(receiver, new IntentFilter(Constant.ACTION_PER_STEP));
         handler = new Handler(Looper.getMainLooper(), this);
         handler.sendEmptyMessage(MSG_CHECK_STOP);
     }
 
-    private void showFloatAlert() {
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        params.x = 0;
-        params.y = 0;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.gravity = Gravity.TOP;
-        params.format = PixelFormat.TRANSPARENT;
-        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
-        params.type = WindowManager.LayoutParams.TYPE_TOAST;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            // remove it before add it on Android 7.1.1, otherwise the view will be auto hidden by system
-            // @see aosp/frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java:2102
-            try {
-                getWindowManager().removeView(getAlertView());
-            } catch (Exception ignored) {}
-        }
+    private void refreshFloatAlert() {
+        try {
+            getWindowManager().removeView(getAlertView());
+        } catch (Exception ignored) {}
         try {
             if (getAlertView().getParent() == null) {
-                getWindowManager().addView(getAlertView(), params);
+                getWindowManager().addView(getAlertView(), getAlertParam());
             }
         } catch (Exception ignored) {}
     }
@@ -104,7 +103,7 @@ public class FloatAlertService extends Service implements Handler.Callback {
                 if (System.currentTimeMillis() - lastStep > Const.TIMEOUT_BACK_STAND_LONG) {
                     stopSelf();
                 } else {
-                    showFloatAlert();
+                    refreshFloatAlert();
                     handler.sendEmptyMessageDelayed(MSG_CHECK_STOP, Const.INTERVAL);
                 }
                 return true;
@@ -120,10 +119,97 @@ public class FloatAlertService extends Service implements Handler.Callback {
     }
 
     public View getAlertView() {
-        if (alertView == null) {
-            alertView = new FloatAlertView(getApplicationContext());
+        switch (getShow()) {
+            case SHOW_ALERT_BAR:
+                if (alertView == null || !(alertView instanceof FloatAlertBarView)) {
+                    alertView = new FloatAlertBarView(getApplicationContext());
+                }
+                break;
+            case SHOW_FULLSCREEN_HARD_LOCK:
+                if (alertView == null || !(alertView instanceof FloatFullscreenLockView)) {
+                    alertView = new FloatFullscreenLockView(getApplicationContext());
+                }
+                break;
+            case SHOW_FULLSCREEN_HARD_UNLOCK:
+                if (alertView == null || !(alertView instanceof FloatFullscreenUnlockView)) {
+                    alertView = new FloatFullscreenUnlockView(getApplicationContext());
+                    View unlockButton = alertView.findViewById(R.id.bt_fullscreen_unlock_unlock);
+                    unlockButton.setOnClickListener(v -> App.getInstance().unlock = System.currentTimeMillis());
+                }
+                break;
+            case SHOW_EMPTY:
+                if (alertView == null) {
+                    alertView = new View(getApplicationContext());
+                }
+                break;
         }
         return alertView;
+    }
+
+    public WindowManager.LayoutParams getAlertParam() {
+        if (alertParams == null) {
+            alertParams = new WindowManager.LayoutParams();
+        }
+        switch (getShow()) {
+            case SHOW_ALERT_BAR:
+                alertParams.x = 0;
+                alertParams.y = 0;
+                alertParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                alertParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+                alertParams.gravity = Gravity.TOP;
+                alertParams.format = PixelFormat.TRANSPARENT;
+                alertParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                        | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                        | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+                alertParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+                break;
+            case SHOW_FULLSCREEN_HARD_LOCK:
+            case SHOW_FULLSCREEN_HARD_UNLOCK:
+                alertParams.x = 0;
+                alertParams.y = 0;
+                alertParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+                alertParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+                alertParams.gravity = Gravity.CENTER;
+                alertParams.format = PixelFormat.TRANSPARENT;
+                alertParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
+                    alertParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+                } else {
+                    alertParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+                }
+                break;
+            case SHOW_EMPTY:
+                alertParams.x = 0;
+                alertParams.y = 0;
+                alertParams.height = 0;
+                alertParams.width = 0;
+                alertParams.gravity = Gravity.TOP;
+                alertParams.format = PixelFormat.TRANSPARENT;
+                alertParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                        | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                        | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+                alertParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+                break;
+        }
+        return alertParams;
+    }
+
+    public int getShow() {
+        int show;
+        if (mode == Const.MODE_EASY) {
+            show = SHOW_ALERT_BAR;
+        } else if (mode == Const.MODE_HARD && System.currentTimeMillis() - App.getInstance().unlock > Const.TIMEOUT_RELOCK_HARD) {
+            if (System.currentTimeMillis() - start < Const.TIMEOUT_UNLOCK_HARD) {
+                show = SHOW_FULLSCREEN_HARD_LOCK;
+            } else {
+                show = SHOW_FULLSCREEN_HARD_UNLOCK;
+            }
+        } else {
+            show = SHOW_EMPTY;
+        }
+        Log.v(TAG, "unlock=" + App.getInstance().unlock);
+        Log.v(TAG, "to=" + (System.currentTimeMillis() - App.getInstance().unlock));
+        return show;
     }
 
     @Nullable

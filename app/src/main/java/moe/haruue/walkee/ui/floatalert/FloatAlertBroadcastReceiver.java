@@ -7,6 +7,8 @@ import android.content.Intent;
 
 import java.util.List;
 
+import moe.haruue.walkee.App;
+import moe.haruue.walkee.config.Const;
 import moe.haruue.walkee.data.log.func.InsertLogFunc;
 import moe.haruue.walkee.data.permission.func.CheckPermissionFunc;
 import moe.haruue.walkee.util.ApplicationUtils;
@@ -20,7 +22,7 @@ public class FloatAlertBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String packageName = ApplicationUtils.getForegroundApp(context);
         if (packageName == null || !CheckPermissionFunc.checkPermission(ApplicationUtils.getForegroundApp(context))) {
-            if (!isServiceWork(context, FloatAlertService.class.getName())) {
+            if (!isServiceWork(context, FloatAlertService.class.getName()) && System.currentTimeMillis() - App.getInstance().unlock > Const.TIMEOUT_RELOCK_HARD) {
                 FloatAlertService.start(context);
                 new InsertLogFunc().call(0);
             }

@@ -22,6 +22,7 @@ public class App extends BasePedoApplication {
     @SuppressLint("StaticFieldLeak")
     private static App instance;
     private User user;
+    public long unlock = 0;
 
     @Override
     public void onCreate() {

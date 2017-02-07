@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:padding="@dimen/padding_fullscreen_container"
+              android:background="@color/bg_fullscreen">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fullscreen_unlock_message"
+        android:textSize="@dimen/ts_fullscreen_message"
+        android:textColor="@color/tc_fullscreen_message"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bt_fullscreen_unlock_unlock"
+            android:layout_width="@dimen/size_fullscreen_button"
+            android:layout_height="@dimen/size_fullscreen_button"
+            android:layout_margin="@dimen/margin_fullscreen_button"
+            android:gravity="center"
+            android:background="@drawable/circle_button_red"
+            android:text="@string/urgent"
+            android:textSize="@dimen/ts_fullscreen_button"
+            android:textColor="@color/material_color_white"/>
+
+        <TextView
+            android:id="@+id/bt_fullscreen_unlock_walk"
+            android:layout_width="@dimen/size_fullscreen_button"
+            android:layout_height="@dimen/size_fullscreen_button"
+            android:layout_margin="@dimen/margin_fullscreen_button"
+            android:gravity="center"
+            android:background="@drawable/circle_button_red"
+            android:text="@string/walk_en"
+            android:textSize="@dimen/ts_fullscreen_button"
+            android:textColor="@color/tc_fullscreen_button"/>
+
+    </LinearLayout>
+
+</LinearLayout>
