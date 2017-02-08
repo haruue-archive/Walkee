@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import moe.haruue.walkee.R;
 import moe.haruue.walkee.config.Const;
 import moe.haruue.walkee.ui.base.BaseActivity;
+import moe.haruue.walkee.ui.floatalert.FloatAlertService;
 import moe.haruue.walkee.util.SPUtils;
 
 /**
@@ -75,10 +76,12 @@ public class ModeChooseActivity extends BaseActivity {
             switch (v.getId()) {
                 case R.id.cv_mode_hard:
                     SPUtils.set(ModeChooseActivity.this, Const.SPKEY_MODE, Const.MODE_HARD);
+                    FloatAlertService.stop(ModeChooseActivity.this);
                     refreshModeCheck();
                     break;
                 case R.id.cv_mode_easy:
                     SPUtils.set(ModeChooseActivity.this, Const.SPKEY_MODE, Const.MODE_EASY);
+                    FloatAlertService.stop(ModeChooseActivity.this);
                     refreshModeCheck();
                     break;
             }

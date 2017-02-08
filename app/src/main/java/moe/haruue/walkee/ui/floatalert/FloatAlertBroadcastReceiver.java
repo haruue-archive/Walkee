@@ -2,8 +2,10 @@ package moe.haruue.walkee.ui.floatalert;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.List;
 
@@ -18,11 +20,14 @@ import moe.haruue.walkee.util.ApplicationUtils;
  */
 
 public class FloatAlertBroadcastReceiver extends BroadcastReceiver {
+
+    public static final String TAG = "FloatAlertBR";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String packageName = ApplicationUtils.getForegroundApp(context);
         if (packageName == null || !CheckPermissionFunc.checkPermission(ApplicationUtils.getForegroundApp(context))) {
-            if (!isServiceWork(context, FloatAlertService.class.getName()) && System.currentTimeMillis() - App.getInstance().unlock > Const.TIMEOUT_RELOCK_HARD) {
+            if (!isServiceWork(context, new ComponentName(context, FloatAlertService.class).getClassName()) && System.currentTimeMillis() - App.getInstance().unlock > Const.TIMEOUT_RELOCK_HARD) {
                 FloatAlertService.start(context);
                 new InsertLogFunc().call(0);
             }
@@ -40,7 +45,7 @@ public class FloatAlertBroadcastReceiver extends BroadcastReceiver {
         boolean isWork = false;
         ActivityManager myAM = (ActivityManager) mContext
                 .getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> myList = myAM.getRunningServices(40);
+        List<ActivityManager.RunningServiceInfo> myList = myAM.getRunningServices(Integer.MAX_VALUE);
         if (myList.size() <= 0) {
             return false;
         }
@@ -51,6 +56,7 @@ public class FloatAlertBroadcastReceiver extends BroadcastReceiver {
                 break;
             }
         }
+        Log.d(TAG, "isServiceWork() returned: " + isWork);
         return isWork;
     }
 
