@@ -31,7 +31,8 @@ public class LogDatabase extends SQLiteOpenHelper {
     }
 
     public static final String TABLE_WALK_LOG = "walk_log";
-    public static final String COLUMN_TIME_IN_MILLIS = "time_in_millis";
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_TIMES = "times";
 
 
     private LogDatabase(Context context) {
@@ -41,7 +42,8 @@ public class LogDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_WALK_LOG + " (" +
-                COLUMN_TIME_IN_MILLIS + " INTEGER" +
+                COLUMN_DATE + " TEXT PRIMARY KEY," +
+                COLUMN_TIMES + " INTEGER" +
                 ")");
     }
 

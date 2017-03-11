@@ -80,7 +80,7 @@ public class ShadowActivity extends AppCompatActivity {
         if (DEBUG) {
             Log.i(TAG, "begin");
         }
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
         } else {

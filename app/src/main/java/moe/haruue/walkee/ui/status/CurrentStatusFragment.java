@@ -9,13 +9,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.jude.utils.JTimeTransform;
+
 import java.util.List;
 
 import moe.haruue.walkee.BuildConfig;
 import moe.haruue.walkee.R;
+import moe.haruue.walkee.config.Const;
 import moe.haruue.walkee.ui.main.BaseFragmentInMainActivity;
 import moe.haruue.walkee.ui.widget.StatisticsBarGraph;
+import moe.haruue.walkee.util.SPUtils;
 
 /**
  * 当前状态 & MainFragment
@@ -31,12 +34,18 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
 
     RelativeLayout statusContainer;
     TextView statusTextView;
+    TextView timeGraphDayAverageTextView;
+    TextView timeGraphTodayTextView;
+    TextView timeGraphLastTimeTextView;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         statusContainer = $(R.id.rl_status_current_status_container);
         statusTextView = $(R.id.tv_status_current_status_text);
+        timeGraphDayAverageTextView = $(R.id.tv_status_statistics_time_graph_subtitle);
+        timeGraphTodayTextView = $(R.id.tv_status_statistics_time_graph_today);
+        timeGraphLastTimeTextView = $(R.id.tv_status_statistics_time_graph_recent);
         presenter = new CurrentStatusPresenter(this);
     }
 
@@ -46,18 +55,23 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
         return inflater.inflate(R.layout.fragment_status, container, false);
     }
 
-    private void loadStatisticsGraphs() {
+    @SuppressWarnings("ConstantConditions")
+    public void onLoadTimeStatisticsGraphs(List<StatisticsBarGraph.Item> data) {
+        int sum = 0;
+        for (StatisticsBarGraph.Item i: data) {
+            sum += (int) i.data;
+        }
+        if (data.size() != 0) {
+            timeGraphDayAverageTextView.setText(getString(R.string.format_day_average, (int) (sum / data.size())));
+            timeGraphTodayTextView.setText(getString(R.string.format_times, (int) data.get(data.size() - 1).data));
+        } else {
+            timeGraphDayAverageTextView.setText(getString(R.string.format_day_average, 0));
+            timeGraphTodayTextView.setText(getString(R.string.format_times, 0));
+        }
+        long lastTime = (Long) SPUtils.get(getContext(), Const.SPKEY_LAST_LOG_TIMESTAMP, System.currentTimeMillis());
+        timeGraphLastTimeTextView.setText(new JTimeTransform(lastTime / 1000).toString(new JTimeTransform.RecentDateFormat()));
         StatisticsBarGraph timeGraph = (StatisticsBarGraph) getView().findViewWithTag(getString(R.string.tag_sg_time));
-        // Generate test data
-        List<StatisticsBarGraph.Item> times = new ArrayList<>();
-        times.add(new StatisticsBarGraph.Item("六", 9016));
-        times.add(new StatisticsBarGraph.Item("日", 17361));
-        times.add(new StatisticsBarGraph.Item("一", 9844));
-        times.add(new StatisticsBarGraph.Item("二", 16963));
-        times.add(new StatisticsBarGraph.Item("三", 8690));
-        times.add(new StatisticsBarGraph.Item("四", 4181));
-        times.add(new StatisticsBarGraph.Item("五", 4387));
-        timeGraph.setData(times);
+        timeGraph.setData(data);
     }
 
     @SuppressWarnings("deprecation")
@@ -91,7 +105,7 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
         super.onResume();
         getMainActivity().setNavigationMenuItemChecked(R.id.item_current_status);
         presenter.start();
-        loadStatisticsGraphs();
+        presenter.requestTimeStatisticsData();
     }
 
     @Override

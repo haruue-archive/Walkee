@@ -13,15 +13,16 @@
     <string name="please_put_down_your_smart_phone_while_you_walking">为了您的安全，请在步行时放下手机。</string>
     <string name="statistics">统计</string>
     <string name="walk_distance">步行 + 跑步距离</string>
-    <string name="format_day_average">日平均值: %1$s</string>
+    <string name="format_day_average">日平均值: %1$d</string>
     <string name="format_distance_km">%1$s 公里</string>
     <string name="time_of_walk_while_using_smart_phone">步行的同时使用手机的次数</string>
-    <string name="format_times">%1$s 次</string>
+    <string name="format_times">%1$d 次</string>
     <string name="ask_username">该如何称呼您呢？</string>
     <string name="click_to_fill_username">点这里告诉我应该如何称呼您</string>
     <string name="nickname">昵称</string>
     <string name="nickname_here">在这里输入你的昵称</string>
     <string name="tag_sg_distance" translatable="false">tag_sg_distance</string>
+    <string name="tag_sg_step" translatable="false">tag_sg_step</string>
     <string name="tag_sg_time" translatable="false">sg_time</string>
     <string name="settings">设置</string>
     <string name="account_info">个人资料信息</string>
@@ -52,4 +53,6 @@
     <string name="fullscreen_unlock_message">可爱的你\n\t\t\t是有着急的事儿吗？</string>
     <string name="urgent">急</string>
     <string name="walk_en">Walk</string>
+    <string name="step">步数</string>
+    <string name="format_step">%1$d 步</string>
 </resources>

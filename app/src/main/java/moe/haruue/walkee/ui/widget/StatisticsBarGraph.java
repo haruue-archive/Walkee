@@ -91,7 +91,7 @@ public class StatisticsBarGraph extends FrameLayout {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             Item i = items.get(position);
-            holder.weekday.setText(i.name);
+            holder.weekday.setText(i.name.split("-")[2]);
             holder.weekday.setTextColor(textColor);
             holder.weekday.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             holder.hr.setBackgroundColor(hrColor);

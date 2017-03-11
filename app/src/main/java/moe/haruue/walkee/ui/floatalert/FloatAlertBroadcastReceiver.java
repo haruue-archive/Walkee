@@ -14,6 +14,7 @@ import moe.haruue.walkee.config.Const;
 import moe.haruue.walkee.data.log.func.InsertLogFunc;
 import moe.haruue.walkee.data.permission.func.CheckPermissionFunc;
 import moe.haruue.walkee.util.ApplicationUtils;
+import moe.haruue.walkee.util.LogTimestampUtils;
 
 /**
  * @author Haruue Icymoon haruue@caoyue.com.cn
@@ -25,6 +26,7 @@ public class FloatAlertBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        LogTimestampUtils.refreshLastStepTimestamp(context);
         String packageName = ApplicationUtils.getForegroundApp(context);
         if (packageName == null || !CheckPermissionFunc.checkPermission(ApplicationUtils.getForegroundApp(context))) {
             if (!isServiceWork(context, new ComponentName(context, FloatAlertService.class).getClassName()) && System.currentTimeMillis() - App.getInstance().unlock > Const.TIMEOUT_RELOCK_HARD) {

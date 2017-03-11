@@ -12,6 +12,8 @@ public class Const {
     public static final String SPKEY_MODE = "mode";
     public static final String SPKEY_CUSTOMIZE_TIME_START = "customize_time_start";
     public static final String SPKEY_CUSTOMIZE_TIME_END = "customize_time_end";
+    public static final String SPKEY_LAST_STEP_TIMESTAMP = "last_step_timestamp";
+    public static final String SPKEY_LAST_LOG_TIMESTAMP = "last_log_timestamp";
 
     public static final String FILE_NAME_AVATAR = "avatar";
 

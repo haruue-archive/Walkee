@@ -23,6 +23,7 @@ import moe.haruue.walkee.App;
 import moe.haruue.walkee.BuildConfig;
 import moe.haruue.walkee.R;
 import moe.haruue.walkee.config.Const;
+import moe.haruue.walkee.util.LogTimestampUtils;
 import moe.haruue.walkee.util.SPUtils;
 
 /**
@@ -68,6 +69,7 @@ public class FloatAlertService extends Service implements Handler.Callback {
     public void onCreate() {
         super.onCreate();
         initializePreferType();
+        LogTimestampUtils.refreshLastLogTimestamp(getApplicationContext());
         start = System.currentTimeMillis();
         lastStep = System.currentTimeMillis();
         registerReceiver(receiver, new IntentFilter(Constant.ACTION_PER_STEP));
@@ -231,6 +233,5 @@ public class FloatAlertService extends Service implements Handler.Callback {
         Intent starter = new Intent(context, FloatAlertService.class);
         context.stopService(starter);
     }
-
 
 }
