@@ -32,4 +32,7 @@
     <color name="bg_circle_button_red_selected">@color/material_color_red_200</color>
     <color name="tc_fullscreen_button">@color/material_color_white</color>
     <color name="bg_fullscreen">@color/material_color_white</color>
+    <color name="bg_sc_card_statistics_step">@color/material_color_blue_800</color>
+    <color name="bg_drawer_start_blue">@color/olivia_bg_drawer_start_blue</color>
+    <color name="bg_drawer_end_blue">@color/olivia_bg_drawer_end_blue</color>
 </resources>

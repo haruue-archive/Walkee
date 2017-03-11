@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="olivia_primary_blue">#42A5F5</color>
+    <color name="olivia_lock_screen_blue">#93CBF9</color>
+    <color name="olivia_bg_drawer_start_blue">#F3F9FE</color>
+    <color name="olivia_bg_drawer_end_blue">#90CAF9</color>
+</resources>
