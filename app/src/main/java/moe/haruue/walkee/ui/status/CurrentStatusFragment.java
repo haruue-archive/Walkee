@@ -80,7 +80,7 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
             Log.d(TAG, "setStatusWalk");
         }
         try {
-            statusContainer.setBackgroundColor(getMainActivity().getResources().getColor(R.color.bg_sc_card_status_walk));
+            //statusContainer.setBackgroundColor(getMainActivity().getResources().getColor(R.color.bg_sc_card_status_walk));
             statusTextView.setText(R.string.walk);
         } catch (Exception ignored) {
 
@@ -93,7 +93,7 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
             Log.d(TAG, "setStatusStand");
         }
         try {
-            statusContainer.setBackgroundColor(getMainActivity().getResources().getColor(R.color.bg_sc_card_status_stand));
+            //statusContainer.setBackgroundColor(getMainActivity().getResources().getColor(R.color.bg_sc_card_status_stand));
             statusTextView.setText(R.string.stand);
         } catch (Exception ignored) {
 

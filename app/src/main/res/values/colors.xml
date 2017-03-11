@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/material_color_gray_800</color>
-    <color name="colorPrimaryDark">@color/material_color_gray_900</color>
-    <!--<color name="colorAccent">@color/material_color_gray_50</color>-->
-    <color name="colorAccent">@color/material_color_teal_400</color>
+    <color name="colorPrimary">@color/olivia_primary_blue</color>
+    <color name="colorPrimaryDark">@color/olivia_primary_blue</color>
+    <color name="colorAccent">@color/olivia_primary_blue</color>
     <color name="half_alpha_white">#55FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="bg_navigation_head">@color/material_color_gray_600</color>
@@ -11,14 +10,16 @@
     <color name="tc_sh_username">@color/material_color_black</color>
     <color name="hc_sh_username_edit">@color/material_color_gray_700</color>
     <color name="bg_sc_content">@color/material_color_gray_200</color>
-    <color name="bg_sc_card_status_stand">@color/material_color_blue_800</color>
-    <color name="bg_sc_card_status_walk">@color/material_color_red_800</color>
+    <color name="bg_sc_card_status_stand">@color/olivia_primary_blue</color>
+    <color name="bg_sc_card_status_walk">@color/olivia_primary_blue</color>
     <color name="tc_sc_card_status_text">@color/material_color_white</color>
     <color name="tc_sc_category_tag">@color/material_color_black</color>
-    <color name="bg_sc_card_statistics_distance">@color/material_color_teal_800</color>
+    <color name="bg_sc_card_statistics_distance">@color/olivia_primary_blue</color>
     <color name="tc_sc_statistics_graph_title">@color/material_color_white</color>
     <color name="tc_sc_statistics_graph_subtitle">@color/material_color_gray_400</color>
-    <color name="bg_sc_card_statistics_time">@color/material_color_orange_800</color>
+    <color name="tc_sc_statistics_graph_title_blue">@color/olivia_primary_blue</color>
+    <color name="tc_sc_statistics_graph_subtitle_blue">@color/olivia_primary_blue</color>
+    <color name="bg_sc_card_statistics_time">@color/olivia_primary_blue</color>
     <color name="bc_avatar_border">@color/material_color_white</color>
     <color name="bg_sc_card_mode_hard">@color/material_color_red_700</color>
     <color name="tc_mode_card_title">@color/material_color_white</color>
@@ -31,8 +32,8 @@
     <color name="bg_circle_button_red">@color/material_color_red_600</color>
     <color name="bg_circle_button_red_selected">@color/material_color_red_200</color>
     <color name="tc_fullscreen_button">@color/material_color_white</color>
-    <color name="bg_fullscreen">@color/material_color_white</color>
-    <color name="bg_sc_card_statistics_step">@color/material_color_blue_800</color>
+    <color name="bg_fullscreen">@color/olivia_lock_screen_blue</color>
+    <color name="bg_sc_card_statistics_step">@color/olivia_primary_blue</color>
     <color name="bg_drawer_start_blue">@color/olivia_bg_drawer_start_blue</color>
     <color name="bg_drawer_end_blue">@color/olivia_bg_drawer_end_blue</color>
 </resources>

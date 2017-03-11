@@ -19,12 +19,14 @@
             <item android:id="@+id/item_mode_choose"
                   android:title="@string/mode_choose"
                   android:checkable="false"
-                  app:showAsAction="ifRoom"/>
+                  app:showAsAction="never"
+                  android:checked="false"/>
 
             <item android:id="@+id/item_permission_settings"
                   android:title="@string/permission_settings"
                   android:checkable="false"
-                  app:showAsAction="ifRoom"/>
+                  app:showAsAction="never"
+                  android:checked="false"/>
 
         </menu>
 

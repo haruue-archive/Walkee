@@ -15,12 +15,18 @@
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="-2dp"
         android:layout_marginRight="-2dp"
-        app:cardElevation="5dp">
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="@color/bg_sc_card_statistics_step">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_mountain_blue"
+            android:scaleType="fitStart"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bg_sc_card_statistics_step"
             android:padding="10dp">
 
             <RelativeLayout
@@ -36,7 +42,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:text="@string/step"
-                    android:textColor="@color/tc_sc_statistics_graph_title"
+                    android:textColor="@color/tc_sc_statistics_graph_title_blue"
                     android:textSize="20sp"/>
 
                 <TextView
@@ -46,7 +52,7 @@
                     android:layout_below="@+id/tv_walklog_statistics_step_graph_title"
                     android:layout_alignParentLeft="true"
                     android:text="@string/format_day_average"
-                    android:textColor="@color/tc_sc_statistics_graph_subtitle"
+                    android:textColor="@color/tc_sc_statistics_graph_subtitle_blue"
                     android:textSize="15sp"/>
 
                 <TextView
@@ -56,7 +62,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:text="@string/format_step"
-                    android:textColor="@color/tc_sc_statistics_graph_title"
+                    android:textColor="@color/tc_sc_statistics_graph_title_blue"
                     android:textSize="20sp"/>
 
                 <TextView
@@ -66,7 +72,7 @@
                     android:layout_below="@+id/tv_walklog_statistics_step_graph_today"
                     android:layout_alignParentRight="true"
                     android:text="今天 上午 10:25"
-                    android:textColor="@color/tc_sc_statistics_graph_subtitle"
+                    android:textColor="@color/tc_sc_statistics_graph_subtitle_blue"
                     android:textSize="15sp"/>
 
             </RelativeLayout>

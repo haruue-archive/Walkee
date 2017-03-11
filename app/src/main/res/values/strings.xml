@@ -49,8 +49,8 @@
     <string name="usage_stats_permission_request_message">要正常使用本应用的权限系统，你需要授予本应用“有权查看使用情况的应用”权限。</string>
     <string name="set_permission_now">现在就去设置</string>
     <string name="usage_stats_permission_denied_message">因为没有“有权查看使用情况的应用”权限，本应用的权限管理功能无法正常工作。</string>
-    <string name="fullscreen_lock_message">已锁定你的手机，请停止步行或停止使用手机</string>
-    <string name="fullscreen_unlock_message">可爱的你\n\t\t\t是有着急的事儿吗？</string>
+    <string name="fullscreen_lock_message">已锁定你的手机，\n请停止步行\n或停止使用手机</string>
+    <string name="fullscreen_unlock_message">可爱的你\n是有着急的事儿吗？</string>
     <string name="urgent">急</string>
     <string name="walk_en">Walk</string>
     <string name="step">步数</string>

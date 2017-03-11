@@ -15,13 +15,19 @@
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="-2dp"
         android:layout_marginRight="-2dp"
-        app:cardElevation="5dp">
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="@color/bg_sc_card_status_stand">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_mountain_blue"
+            android:scaleType="fitStart"/>
 
         <RelativeLayout
             android:id="@+id/rl_status_current_status_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bg_sc_card_status_stand"
             android:padding="20dp">
 
             <TextView
@@ -29,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/your_current_status_is"
-                android:textColor="@color/tc_sc_card_status_text"
+                android:textColor="@color/olivia_primary_blue"
                 android:textSize="30sp"/>
 
             <TextView

@@ -17,6 +17,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/head_main_drawer"
-        app:menu="@menu/menu_main_drawer"/>
+        app:menu="@menu/menu_main_drawer"
+        android:background="@drawable/bg_drawer"
+        app:itemTextColor="@color/material_color_black"
+        app:itemIconTint="@color/material_color_black"/>
 
 </android.support.v4.widget.DrawerLayout>
