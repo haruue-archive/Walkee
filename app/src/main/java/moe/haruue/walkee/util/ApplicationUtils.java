@@ -1,6 +1,5 @@
 package moe.haruue.walkee.util;
 
-import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStatsManager;
@@ -24,7 +23,6 @@ public class ApplicationUtils {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
     private static String getForegroundAppV20(Context context) {
         ActivityManager am =
                 (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
