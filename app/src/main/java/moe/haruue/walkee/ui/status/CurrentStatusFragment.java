@@ -18,7 +18,7 @@ import moe.haruue.walkee.R;
 import moe.haruue.walkee.config.Const;
 import moe.haruue.walkee.ui.main.BaseFragmentInMainActivity;
 import moe.haruue.walkee.ui.widget.StatisticsBarGraph;
-import moe.haruue.walkee.util.SPUtils;
+import moe.haruue.walkee.util.KVUtils;
 
 /**
  * 当前状态 & MainFragment
@@ -68,7 +68,7 @@ public class CurrentStatusFragment extends BaseFragmentInMainActivity {
             timeGraphDayAverageTextView.setText(getString(R.string.format_day_average, 0));
             timeGraphTodayTextView.setText(getString(R.string.format_times, 0));
         }
-        long lastTime = (Long) SPUtils.get(getContext(), Const.SPKEY_LAST_LOG_TIMESTAMP, System.currentTimeMillis());
+        long lastTime = (Long) KVUtils.get(getContext(), Const.KVKEY_LAST_LOG_TIMESTAMP, System.currentTimeMillis());
         timeGraphLastTimeTextView.setText(new JTimeTransform(lastTime / 1000).toString(new JTimeTransform.RecentDateFormat()));
         StatisticsBarGraph timeGraph = (StatisticsBarGraph) getView().findViewWithTag(getString(R.string.tag_sg_time));
         timeGraph.setData(data);

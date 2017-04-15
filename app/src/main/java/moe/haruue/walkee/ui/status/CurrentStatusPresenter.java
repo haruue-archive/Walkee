@@ -1,13 +1,16 @@
 package moe.haruue.walkee.ui.status;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
+import android.util.Log;
 
 import com.base.basepedo.config.Constant;
 import com.base.basepedo.service.StepService;
@@ -23,6 +26,8 @@ import moe.haruue.walkee.ui.widget.StatisticsBarGraph;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static moe.haruue.walkee.util.ApplicationUtils.isServiceWork;
 
 /**
  * @author Haruue Icymoon haruue@caoyue.com.cn
@@ -45,13 +50,26 @@ class CurrentStatusPresenter implements BasePresenter, Handler.Callback {
 
     private long lastStep = 0;
 
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
+    private ServiceConnection conn = new ServiceConnection() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            if (Constant.ACTION_PER_STEP.equals(intent.getAction())) {
-                lastStep = System.currentTimeMillis();
-                fragment.setStatusWalk();
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            if (name.getClassName().equals(StepService.class.getName())) {
+                Messenger initMessenger = new Messenger(service);
+                Messenger replyMessenger = new Messenger(handler);
+                Message initMsg = Message.obtain();
+                initMsg.what = Constant.MSG_INITIALIZE_PER_STEP_CALLBACK;
+                initMsg.replyTo = replyMessenger;
+                try {
+                    initMessenger.send(initMsg);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "onServiceConnected: can't send per step callback init msg, connect failed", e);
+                }
             }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
         }
     };
 
@@ -63,6 +81,11 @@ class CurrentStatusPresenter implements BasePresenter, Handler.Callback {
                     fragment.setStatusStand();
                 }
                 handler.sendEmptyMessageDelayed(MSG_BACK_STAND, Const.INTERVAL);
+                return true;
+            case Constant.MSG_PER_STEP:
+                lastStep = System.currentTimeMillis();
+                fragment.setStatusWalk();
+                return false;
         }
         return false;
     }
@@ -72,36 +95,10 @@ class CurrentStatusPresenter implements BasePresenter, Handler.Callback {
         handler = new Handler(Looper.getMainLooper(), this);
         handler.sendEmptyMessage(MSG_BACK_STAND);
         startServiceForStrategy();
-        fragment.getMainActivity().registerReceiver(receiver, new IntentFilter(Constant.ACTION_PER_STEP));
     }
 
     public void stop() {
-        fragment.getMainActivity().unregisterReceiver(receiver);
-    }
-
-    /**
-     * 判断某个服务是否正在运行的方法
-     *
-     * @param mContext
-     * @param serviceName 是包名+服务的类名（例如：net.loonggg.testbackstage.TestService）
-     * @return true代表正在运行，false代表服务没有正在运行
-     */
-    public boolean isServiceWork(Context mContext, String serviceName) {
-        boolean isWork = false;
-        ActivityManager myAM = (ActivityManager) mContext
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningServiceInfo> myList = myAM.getRunningServices(40);
-        if (myList.size() <= 0) {
-            return false;
-        }
-        for (int i = 0; i < myList.size(); i++) {
-            String mName = myList.get(i).service.getClassName();
-            if (mName.equals(serviceName)) {
-                isWork = true;
-                break;
-            }
-        }
-        return isWork;
+        fragment.getMainActivity().unbindService(conn);
     }
 
     public void requestTimeStatisticsData() {
@@ -119,10 +116,11 @@ class CurrentStatusPresenter implements BasePresenter, Handler.Callback {
     }
 
     private void startServiceForStrategy() {
+        Intent intent = new Intent(fragment.getMainActivity(), StepService.class);
         if (!isServiceWork(fragment.getMainActivity(), StepService.class.getName())) {
-            Intent intent = new Intent(fragment.getMainActivity(), StepService.class);
             fragment.getMainActivity().startService(intent);
         }
+        fragment.getMainActivity().bindService(intent, conn, Context.BIND_AUTO_CREATE);
     }
 
 }

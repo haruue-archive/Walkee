@@ -8,9 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/BasePedo" />
-            <option value="$PROJECT_DIR$/BasePedo/LibMarsdaemon" />
-            <option value="$PROJECT_DIR$/BasePedo/basepedo" />
+            <option value="$PROJECT_DIR$/LibMarsdaemon" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/imageselector" />
           </set>

@@ -13,7 +13,7 @@ import moe.haruue.walkee.R;
 import moe.haruue.walkee.config.Const;
 import moe.haruue.walkee.ui.base.BaseActivity;
 import moe.haruue.walkee.ui.floatalert.FloatAlertService;
-import moe.haruue.walkee.util.SPUtils;
+import moe.haruue.walkee.util.KVUtils;
 
 /**
  * 模式选择
@@ -52,13 +52,12 @@ public class ModeChooseActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
     private void refreshModeCheck() {
-        int mode = (int) SPUtils.get(this, Const.SPKEY_MODE, Const.MODE_EASY);
+        int mode = (int) KVUtils.get(this, Const.KVKEY_MODE, Const.MODE_EASY);
         easyModeCheck.setVisibility(View.INVISIBLE);
         hardModeCheck.setVisibility(View.INVISIBLE);
         if (mode == Const.MODE_EASY) {
@@ -75,12 +74,12 @@ public class ModeChooseActivity extends BaseActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.cv_mode_hard:
-                    SPUtils.set(ModeChooseActivity.this, Const.SPKEY_MODE, Const.MODE_HARD);
+                    KVUtils.set(ModeChooseActivity.this, Const.KVKEY_MODE, Const.MODE_HARD);
                     FloatAlertService.stop(ModeChooseActivity.this);
                     refreshModeCheck();
                     break;
                 case R.id.cv_mode_easy:
-                    SPUtils.set(ModeChooseActivity.this, Const.SPKEY_MODE, Const.MODE_EASY);
+                    KVUtils.set(ModeChooseActivity.this, Const.KVKEY_MODE, Const.MODE_EASY);
                     FloatAlertService.stop(ModeChooseActivity.this);
                     refreshModeCheck();
                     break;

@@ -1,30 +1,36 @@
 package moe.haruue.walkee.ui.floatalert;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.base.basepedo.config.Constant;
+import com.base.basepedo.service.StepService;
 
 import moe.haruue.walkee.App;
 import moe.haruue.walkee.BuildConfig;
 import moe.haruue.walkee.R;
 import moe.haruue.walkee.config.Const;
+import moe.haruue.walkee.util.KVUtils;
 import moe.haruue.walkee.util.LogTimestampUtils;
-import moe.haruue.walkee.util.SPUtils;
+
+import static moe.haruue.walkee.util.ApplicationUtils.isServiceWork;
 
 /**
  * @author Haruue Icymoon haruue@caoyue.com.cn
@@ -53,15 +59,26 @@ public class FloatAlertService extends Service implements Handler.Callback {
 
     public static final int MSG_CHECK_STOP = 93190719;
 
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
+    private ServiceConnection conn = new ServiceConnection() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            if (Constant.ACTION_PER_STEP.equals(intent.getAction())) {
-                lastStep = System.currentTimeMillis();
-                if (isStanded) {
-                    handler.sendEmptyMessage(MSG_CHECK_STOP);
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            if (name.getClassName().equals(StepService.class.getName())) {
+                Messenger initMessenger = new Messenger(service);
+                Messenger replyMessenger = new Messenger(handler);
+                Message initMsg = Message.obtain();
+                initMsg.what = Constant.MSG_INITIALIZE_PER_STEP_CALLBACK;
+                initMsg.replyTo = replyMessenger;
+                try {
+                    initMessenger.send(initMsg);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "onServiceConnected: can't send per step callback init msg, connect failed", e);
                 }
             }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
         }
     };
 
@@ -72,7 +89,7 @@ public class FloatAlertService extends Service implements Handler.Callback {
         LogTimestampUtils.refreshLastLogTimestamp(getApplicationContext());
         start = System.currentTimeMillis();
         lastStep = System.currentTimeMillis();
-        registerReceiver(receiver, new IntentFilter(Constant.ACTION_PER_STEP));
+        startStepServiceForStrategy();
         handler = new Handler(Looper.getMainLooper(), this);
         handler.sendEmptyMessage(MSG_CHECK_STOP);
     }
@@ -117,7 +134,8 @@ public class FloatAlertService extends Service implements Handler.Callback {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
+        //unregisterReceiver(receiver);
+        unbindService(conn);
         hideAllView();
     }
 
@@ -132,6 +150,12 @@ public class FloatAlertService extends Service implements Handler.Callback {
                     isStanded = false;
                     refresh();
                     handler.sendEmptyMessageDelayed(MSG_CHECK_STOP, Const.INTERVAL);
+                }
+                return true;
+            case Constant.MSG_PER_STEP:
+                lastStep = System.currentTimeMillis();
+                if (isStanded) {
+                    handler.sendEmptyMessage(MSG_CHECK_STOP);
                 }
                 return true;
         }
@@ -204,7 +228,7 @@ public class FloatAlertService extends Service implements Handler.Callback {
     }
 
     public void refresh() {
-        int mode = (int) SPUtils.get(getApplicationContext(), Const.SPKEY_MODE, Const.MODE_EASY);
+        int mode = (int) KVUtils.get(getApplicationContext(), Const.KVKEY_MODE, Const.MODE_EASY);
         if (mode == Const.MODE_EASY) {
             showAlertBarView();
         } else if (mode == Const.MODE_HARD && System.currentTimeMillis() - App.getInstance().unlock > Const.TIMEOUT_RELOCK_HARD) {
@@ -232,6 +256,14 @@ public class FloatAlertService extends Service implements Handler.Callback {
     public static void stop(Context context) {
         Intent starter = new Intent(context, FloatAlertService.class);
         context.stopService(starter);
+    }
+
+    private void startStepServiceForStrategy() {
+        Intent intent = new Intent(this, StepService.class);
+        if (!isServiceWork(this, StepService.class.getName())) {
+            startService(intent);
+        }
+        bindService(intent, conn, Context.BIND_AUTO_CREATE);
     }
 
 }

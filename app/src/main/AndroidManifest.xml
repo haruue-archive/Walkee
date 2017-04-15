@@ -6,6 +6,11 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
                      tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" />
 
     <application
         android:name=".App"
@@ -27,12 +32,43 @@
         <activity android:name=".ui.permission.PermissionSettingsActivity"/>
         <service android:name=".ui.floatalert.FloatAlertService"
                  android:process=":floatalert"/>
-        <receiver android:name=".ui.floatalert.FloatAlertBroadcastReceiver"
-                  android:exported="false">
+
+        <service
+            android:name="com.base.basepedo.service.StepService"
+            android:priority="1000"
+            android:process=":process1"
+            android:exported="false">
             <intent-filter>
-                <action android:name="moe.haruue.walkee.action.PER_STEP"/>
+                <!-- 系统启动完成后会调用-->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_TIME_TICK" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.base.basepedo.service.BootCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+
+        <!-- 守护进程相关 -->
+
+        <receiver
+            android:name="com.base.basepedo.receiver.Receiver1"
+            android:process=":process1" />
+
+        <service
+            android:name="com.base.basepedo.service.Service2"
+            android:process=":process2" />
+        <receiver
+            android:name="com.base.basepedo.receiver.Receiver2"
+            android:process=":process2" />
 
     </application>
 
